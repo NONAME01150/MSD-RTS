@@ -1,0 +1,12 @@
+All Actions below are technically optional, just beware of the ramifications of not having it (like needing a spring or levitation to propel itself upward if it lacks a jump)
+An Unit's Default Actions:
+Idle/Stand
+Wait (Transitions from too long Idle)
+Scared (Possible Round Loss/Strong Unit Lost Anim)
+Walk
+Turn
+Jump
+Crouch
+Melee
+Ranged
+Death

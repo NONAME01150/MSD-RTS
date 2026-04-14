@@ -1,0 +1,311 @@
+[Function Trunc(a) e]
+
+if $a >= 0
+{
+	let e = Floor($a);
+}
+else
+{
+	let e = Ceil($a);
+}
+
+[Function AiMove()]
+if map(movetime) > 0
+{
+	map(movetime) := map(movetime) - 1;
+}
+if map(moveaction) && !map(movetime)
+{
+	let a = (map(movepointx) - floor(pos x + camerapos x)) * facing;
+	let b = (map(movepointy) - floor(pos y + groundlevel));
+	map(forward) := ($a > 12);
+	map(back) := ($a < -12);
+	map(down) := ($b > 12);
+	map(up) := ($b < -spritevar(yoffset));
+	map(jump) := ($b < -30);
+	map(moveaction) := ($a > 12 || $a < -12 || $b > 12 || $b < -12);
+	if $a = [-12,12] && $b = [-30,12]
+	{
+		#map(moveaction) := 0;
+	}
+	else
+	{
+		#map(moveaction) := 1;
+	}
+}
+DisplayToClipBoard{text: "%v %v %v %v %v %v\n%v %v";
+		params: map(forward),
+			map(back),
+			map(down),
+			map(up),
+			map(jump),
+			map(moveaction),
+			map(movepointy),
+			$b}
+
+[Function AiAttack()]
+map(attack) := 0;
+if map(attackcooldown) > 0
+{
+	map(attackcooldown) := map(attackcooldown) - 1;
+}
+if map(attackmethod) = 0 && map(attackcooldown) <= 0
+{
+	if movetype != A
+	{
+		if time % 2 = 0
+		{
+			#Call clsn1(0,15, -36, 31, -3);
+			if clsnoverlap(clsn1, p2,ID, clsn2)
+			{
+				map(attack) := 1;
+			}
+		}
+	}
+}
+
+[Function AiAttackRanged()]
+if map(attackmethod) = 0 && map(attackcooldown) <= 0
+{
+	if movetype != A
+	{
+		if time % 2 = 1
+		{
+			#Call clsn1(0,32, -60, 100, 0);
+			if clsnoverlap(clsn1, p2,ID, clsn2)
+			{
+				map(attack) := 2;
+			}
+		}
+	}
+}
+
+[Function RAINFAnim(i)]
+if anim != $i
+{
+	changeanim{value: RAINF$i}
+}
+
+[Function RebelInfantry()]
+
+if ishelper(1)
+{
+	switch stateno
+	{
+		case 0:
+			#map(forward) := (parent,inputtime(b) > 0);
+			map(back) := ((p2,pos x + p2,camerapos x - (pos x + camerapos x)) * facing = [-60 - 20 * (p2,vel x > 1.5 || p2,map(soundmeter) >= 1) - 40 * (p2,vel x > 3 || p2,map(soundmeter) >= 2),-1]);
+			statetypeset{statetype: S; movetype: I; physics: N}
+			Call AiMove();
+			Call clsn1(0,15, -36, 31, -3);
+			Call AiAttack();
+			Call clsn1(0,32, -60, 100, 0);
+			Call AiAttackRanged();
+			if ctrl #map(forward) || map(back)
+			{
+				if anim = 0 && map(forward)
+				{
+					Call State(20);
+				}
+				else if anim = 0 && map(back)
+				{
+					Call RAINFAnim(3);
+				}
+				else if map(jump) && time
+				{
+					Call RAINFAnim(4);
+					Call State(50);
+				}
+				else if map(down) && !map(forward) && !map(back)
+				{
+					if anim != [7,8]
+					{
+						Call RAINFAnim(7);
+					}
+					if anim = 7 && !animtime
+					{
+						Call RAINFAnim(8);
+					}
+				}
+				else if !map(down) && anim = [7,8]
+				{
+					Call RAINFAnim(9);
+				}
+
+				if map(attack) = 1
+				{
+					Call State(200);
+				}
+				else if map(attack) = 2
+				{
+					Call State(210);
+				}
+			}
+			if anim != 3 && anim != 0 && anim != [7,9] || anim = 9 && !animtime
+			{
+				Call RAINFAnim(0);
+			}
+			if anim = 3 && !animtime
+			{
+				Call RAINFAnim(0);
+				turn{}
+			}
+		case 20:
+			statetypeset{statetype: S; movetype: I; physics: N}
+			if anim != 2
+			{
+				Call RAINFAnim(1);
+			}
+			if anim = 1
+			{
+				#map(forward) := (parent,inputtime(b) > 0);
+				#map(back) := (parent,inputtime(c) > 0);
+				Call AiMove();
+				Call AiAttack();
+				let a = 1.5;
+				if !map(forward)
+				{
+					Call RAINFAnim(2);
+				}
+				else
+				{
+					velset{x: $a * map(forward)}
+				}
+			}
+			if anim = 2
+			{
+				#map(moveaction) := 0;
+				if abs(Vel X) < 0.1
+				{
+					VelSet{X: 0}
+				}
+				if abs(Vel Z) < 0.1
+				{
+					VelSet{Z: 0}
+				}
+				VelMul{X: 0.9;
+				Z: 0.9}
+				if !animtime #|| map(back)
+				{
+					velset{x: 0; z: 0}
+					Call State(0);
+				}
+			}
+			if ctrl
+			{
+				if map(jump)
+				{
+					Call RAINFAnim(5);
+					Call State(50);
+				}
+			}
+		case 50:
+			statetypeset{statetype: A; movetype: I; physics: N}
+			Call AiMove();
+			let a = Call Trunc(Pos Y);
+			if anim != [4,6]
+			{
+				call RAINFAnim(6);
+			}
+
+			if !time
+			{
+				velset{y: -4.5}
+			}
+			if Time
+			{
+				let b = Call Trunc(Vel Y);
+				veladd{y: 0.2}
+				let c = Call Trunc(Vel Y);
+
+				if Time % 8 = 0 && $c != $b
+				{
+					veladd{y: -1}
+				}
+				if pos y >= 0
+				{
+					PosSet{Y: 0}
+					VelSet{x: 0; y: 0; z: 0}
+					Call State(20 * (map(forward) || map(back)));
+				}
+				let a = 1.5;
+				let b = $a * map(forward) - $a * map(back);
+				let c = $a * map(down) - $a * map(up);
+				velset{x: $b;
+				z: $c}
+				VelMul{x: 0.98}
+			}
+		case 200:
+			if !time
+			{
+				#Call clsn1(0,15, -36, 31, -3);
+				map(attackcooldown) := 48;
+				#statetypeset{statetype: S; movetype: A; physics: N}
+				Call BaseDamage(20,0,0,0);
+				call RAINFAnim(10);
+			}
+			if time = 1
+			{
+				statetypeset{statetype: S; movetype: A; physics: N}
+			}
+			if animelemtime(10) = 0
+			{
+				statetypeset{statetype: S; movetype: I; physics: N}
+			}
+			if !animtime
+			{
+				Call State(0);
+			}
+		case 210:
+			if !time
+			{
+				map(attackcooldown) := 72;
+				statetypeset{statetype: S; movetype: A; physics: N}
+				call RAINFAnim(11);
+			}
+			if animelemtime(13) = 0
+			{
+				statetypeset{statetype: S; movetype: I; physics: N}
+			}
+			if !animtime
+			{
+				Call State(0);
+			}
+		case 5150:
+			if !time
+			{
+				velset{x: 0;
+				y: 0;
+				z: 0}
+				Call RAINFAnim(12);
+				statetypeset{statetype: S;
+				movetype: I;
+				physics: N}
+			}
+			if !animtime
+			{
+				if map(disappear) > 2
+				{
+					destroyself{}
+				}
+				map(disappear) := map(disappear) + 1;
+			}
+			if time % 4 = [0,1] && map(disappear) > 1
+			{
+				assertspecial{flag: invisible}
+			}
+		case 5900:
+			changeanim{value: RAINF0}
+			modifyplayer{lifemax: 100}
+	}
+	screenbound{}
+	sprpriority{value: sprpriority - 1}
+	if !alive
+	{
+		call State(5150);
+	}
+	if pos y < 0 && statetype != A && statetype != L
+	{
+		call State(50);
+	}
+}
