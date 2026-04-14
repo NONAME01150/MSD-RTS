@@ -1,0 +1,284 @@
+[Function State(i)]
+if stateno != $i
+{
+	changestate{value: $i}
+}
+
+[Function Anim(i)]
+if anim != $i
+{
+	changeanim{value: $i}
+}
+
+[Function Clsn1(i,l,t,r,d)]
+overrideclsn{group: clsn1;
+index: $i;
+rect: $l,$t,$r,$d}
+
+[Function Clsn2(i,l,t,r,d)]
+overrideclsn{group: clsn2;
+index: $i;
+rect: $l,$t,$r,$d}
+
+[Function BaseDamage(dam,guard,override,reversal)]
+Hitdef{attr: S,NA;
+hitflag: MAD;
+guardflag: MA;
+priority: 1, Hit;
+damage: $dam, $guard;
+sparkno: -1;
+guard.sparkno: -1;
+hitsound: -1, 0;
+guardsound: -1, 0;
+guard.dist: 40;
+guard.dist.height: 40, 40;
+getpower: 0,0;
+givepower: 0,0;
+keepstate: 1;
+missonoverride: $override;
+missonreversaldef: $reversal;
+score: 0,0;
+}
+
+[StateDef 5900; type: S; Physics: N;]
+
+Call RebelInfantry();
+Call State(0);
+
+[StateDef 0; Physics: N;]
+
+if !ishelper
+{
+	TagOut{}
+	if !ailevel
+	{
+		if teamside = 1
+		{
+		Camera{view: Follow;
+		FollowID: ID;}
+		}
+		let xvel = 4 - 3 * (inputtime(b) > 0);
+		let yvel = 3 - 2.25 * (inputtime(b) > 0);
+		Call Anim(0);
+		let a = (inputtime(R) > 0);
+		let b = (inputtime(R) % 4 = 0) * $a;
+		let c = (inputtime(L) > 0);
+		let d = (inputtime(L) % 4 = 0) * $c;
+
+		let e = (inputtime(D) > 0);
+		let f = (inputtime(D) % 4 = 0) * $e;
+		let g = (inputtime(U) > 0);
+		let h = (inputtime(U) % 4 = 0) * $g;
+		posadd{x: $xvel * $a + -$xvel * $c;
+		y: $yvel * $e + -$yvel * $g}
+		if facing != 1
+		{
+			turn{}
+		}
+		if numhelper(1) < 20 && inputtime(y) = 1
+		{
+			Helper{
+			helpertype: player ;
+			id: 1;
+			stateno: 5900;
+			pos: randomrange(-60, 60),0 ;
+			postype: p1 ;
+			facing: 1 ;
+			keyctrl: 0 ;
+			ownpal: 1 ;
+			standby: 0}
+		}
+		if inputtime(b) >= 1
+		{
+			TagIn{}
+			Call Clsn2(0,-1,-1,1,1);
+			for i = 0; Numplayer - 1; 1
+			{
+				if playerindexexist($i) && playerindex($i),ishelper && playerindex($i),id != ID
+				{
+					if playerindex($i),teamside = teamside && playerindex($i),root,ID = ID
+					{
+						if !playerindex($i),standby && clsnoverlap(clsn2, playerindex($i),ID, clsn2)
+						{
+							map(gotone) := 1;
+							if map(teamchosen)
+							{
+								map(chosenUnit) := playerindex($i),ID;
+							}
+							else
+							{
+								map(chosenUnit) := playerindex($i),ID;
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
+		if map(chosenUnit)
+		{
+			for i = 0; 9; 1
+			{
+				let b = map(teamchosen);
+				if var(10000 + $i + $b * 10) = map(chosenUnit)
+				{
+					map(chosenUnit) := 0;
+					break;
+				}
+				else
+				{
+					if var(10000 + $i + $b * 10) != 0
+					{
+						continue;
+					}
+					else
+					{
+						var(10000 + $i + $b * 10) := map(chosenUnit);
+						break;
+					}
+					map(chosenUnit) := 0;
+				}
+			}
+		}
+		if inputtime(b) = -1 && !map(teamchosen) || inputtime(c) = 1
+		{
+			if !map(gotone) || inputtime(c) > 0
+			{
+				for i = 0; 9; 1
+				{
+					let b = map(teamchosen);
+					var(10000 + $i + $b * 10) := map(chosenUnit);
+				}
+			}
+			map(gotone) := 0;
+		}
+		if inputtime(a) = 1
+		{
+			let a = playeridexist(map(chosenUnit));
+			let b = map(teamchosen);
+			#let c = playerid(map(chosenUnit)),pos x + playerid(map(chosenUnit)),camerapos x;
+			#let d = pos x + camerapos x;
+			ignorehitpause
+			{
+				for i = 0; 9; 1
+				{
+					let a = var(10000 + $i + $b * 10);
+					if playeridexist($a)
+					{
+						if playerid($a),alive && playerid($a),ctrl
+						{
+							if !playerid($a),map(movetime)
+							{
+								playerid($a),map(movetime) := randomrange(0,8 * $i);
+							}
+							else
+							{
+								playerid($a),map(movetime) := 0;
+							}
+							playerid($a),map(moveaction) := 1;
+							playerid($a),map(movepointx) := pos x + camerapos x + randomrange(-10 * $i,10 * $i);
+							playerid($a),map(movepointy) := pos y + groundlevel;
+						}
+					}
+					else
+					{
+						continue;
+					}
+				}
+			}
+		}
+		map(teamchosen) := map(teamchosen) + (inputtime(z) = 1) - (inputtime(x) = 1);
+		if map(teamchosen) < 0
+		{
+			map(teamchosen) := 0;
+		}
+		#Free up slots between group 0 (no group) to group 9 (ten slots for each group)
+		for i = 0; 99; 1
+		{
+			let a = var(10000 + $i);
+			if !playeridexist($a) || playeridexist($a) && !playerid($a),ishelper
+			{
+				var(10000 + $i) := 0;
+			}
+		}
+	}
+	else
+	{
+		screenbound{}
+		if facing != 1
+		{
+			turn{}
+		}
+	}
+}
+Call RebelInfantry();
+
+[StateDef 10;]
+
+Call RebelInfantry();
+
+[StateDef 20;]
+
+Call RebelInfantry();
+
+[StateDef 40;]
+
+Call RebelInfantry();
+
+[StateDef 50;]
+
+Call RebelInfantry();
+
+[StateDef 52;]
+
+Call RebelInfantry();
+
+# Lose
+[StateDef 170; ctrl: 0;]
+
+Call RebelInfantry();
+
+# Draw game
+[StateDef 175; ctrl: 0;]
+
+Call RebelInfantry();
+
+[StateDef 200;]
+
+Call RebelInfantry();
+
+[StateDef 210;]
+
+Call RebelInfantry();
+
+[StateDef 5150;]
+
+Call RebelInfantry();
+
+[StateDef +1;]
+
+if !ishelper
+{
+	let b = map(teamchosen);
+	DisplayToClipBoard{text: "%v %v %v %v %v %v %v %v %v %v";
+		params: var(10000 + $b * 10),
+			var(10001 + $b * 10),
+			var(10002 + $b * 10),
+			var(10003 + $b * 10),
+			var(10004 + $b * 10),
+			var(10005 + $b * 10),
+			var(10006 + $b * 10),
+			var(10007 + $b * 10),
+			var(10008 + $b * 10),
+			var(10009 + $b * 10),}
+}
+
+[StateDef -4;]
+
+assertspecial{flag: nohardcodedkeys;
+flag2: nostandguard;
+flag3: noairguard;
+flag4: nocrouchguard;
+flag5: sizepushonly;
+flag6: noautoturn;
+flag7: NoFallDefenceUp}
