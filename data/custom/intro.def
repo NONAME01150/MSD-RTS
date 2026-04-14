@@ -1,0 +1,986 @@
+[Info]
+localcoord = 320,240
+mugenversion = 1.1
+
+[SceneDef]
+spr = intro.sff
+snd = intro.snd
+font0 = MSlug.def
+;startscene = 3
+
+[Scene 0]
+; Fade parameters
+fadein.time = 30       ;30 ticks (0.5 seconds) for fade-in
+fadeout.time = 30      ;30 ticks for fade-out
+; Layers
+layerall.pos = 0,0
+layer0.anim =  0
+layer1.offset = 160,220
+layer1.text = "AFTER COUNTLESS ATTEMPTS OF WORLD DOMINATION WERE TROUNCED AT THE HANDS OF THE REGULAR ARMY."
+layer1.font = 0
+layer1.textdelay = 5
+layer1.starttime = 30
+; Music
+bgm = introalt.ogg       ;Filename for music
+; Total time
+end.time = 650
+
+[Scene 1]
+fadein.time = 30
+fadeout.time = 30
+layer0.anim = 1
+layer1.anim = 10
+layer1.offset = 110,184
+layer2.anim = 13
+layer2.offset = 73,180
+layer3.anim = 14
+layer3.offset = 52,180
+layer4.anim = 15
+layer4.offset = 216,180
+layer5.anim = 17
+layer5.offset = 170,182
+layer6.anim = 12
+layer6.offset = 0,188
+layer6.velocity = 1.5,0
+layer7.anim = 12
+layer7.offset = -40,185
+layer7.velocity = 1.3,0
+layer8.anim = 12
+layer8.offset = -80,187
+layer8.velocity = 1.5,0
+layer9.anim = 12
+layer9.offset = -96,190
+layer9.velocity = 1.5,0
+layer10.anim = 12
+layer10.offset = -96,190
+layer10.velocity = 0.75,0
+layer11.anim = 12
+layer11.offset = -516,187
+layer11.velocity = 1.5,0
+layer12.anim = 12
+layer12.offset = -508,189
+layer12.velocity = 1.5,0
+layer13.anim = 12
+layer13.offset = -500,191
+layer13.velocity = 1.5,0
+layer14.anim = 12
+layer14.offset = -450,188
+layer14.velocity = 1,0
+layer15.anim = 12
+layer15.offset = -550,188
+layer15.velocity = 1,0
+layer16.anim = 12
+layer16.offset = -600,188
+layer16.velocity = 1,0
+layer17.anim = 12
+layer17.offset = -650,188
+layer17.velocity = 1,0
+layer18.anim = 16
+layer18.offset = -250,188
+layer18.velocity = 0.3,0
+layer20.anim = 2
+layer21.anim = 2
+layer21.offset = -280,0
+layer22.text = "GENERAL DONALD MORDEN AND HIS REBEL ARMY WERE DROVEN TO THE BRINK OF INEXISTENCE."
+layer22.font = 0
+layer22.offset = 160,220
+layer22.textdelay = 5
+layer22.starttime = 30
+layer22.endtime = 500
+layer23.text = "TO AVOID SUCH FATE, THEY RETURNED TO ONE OF THEIR OLD, SECRET BASES."
+layer23.font = 0
+layer23.offset = 160,220
+layer23.textdelay = 5
+layer23.starttime = 530
+end.time = 1150
+
+[Scene 2]
+fadein.time = 30
+fadeout.time = 0
+end.time = 1000
+layer0.anim = 3
+layer1.anim = 20
+layer1.offset = 32,76
+layer1.endtime = 90
+layer2.anim = 21
+layer2.offset = 52,76
+layer2.endtime = 90
+layer3.anim = 18
+layer3.offset = 20,96
+layer3.endtime = 90
+layer4.anim = 20
+layer4.offset = 32,76
+layer4.starttime = 90
+layer4.velocity = -0.75,0
+layer5.anim = 21
+layer5.offset = 52,76
+layer5.starttime = 90
+layer5.velocity = -0.75,0
+layer6.anim = 19
+layer6.offset = 20,96
+layer6.starttime = 90
+layer6.velocity = -0.75,0
+layer7.anim = 22
+layer7.offset = 159,160
+layer8.anim = 11
+layer8.offset = 143,168
+layer9.anim = 23
+layer9.offset = 32,162
+layer10.anim = 25
+layer10.offset = 120,164
+layer11.anim = 26
+layer11.offset = 80,164
+layer12.anim = 27
+layer12.offset = 300,160
+layer1000.text = "THERE, THEY WOULD REGROUP AND RECOVER THEIR RESOURCES BEFORE INITIATING ANY FURTHER ATTEMPTS."
+layer1000.font = 0
+layer1000.offset = 160,220
+layer1000.textdelay = 5
+layer1000.starttime = 30
+layer1000.endtime = 700
+layer1001.text = "HOWEVER..."
+layer1001.font = 0
+layer1001.offset = 160,220
+layer1001.textdelay = 10
+layer1001.starttime = 700
+layer1001.endtime = 900
+sound0.value = 0, 1
+sound0.starttime = 960
+
+[Scene 3]
+fadein.time = 0
+fadeout.time = 60
+end.time = 800
+bgm = none.ogg
+layer0.anim = 3
+layer0.endtime = 60
+layer1.anim = 4
+layer1.starttime = 60
+layer2.anim = 40
+layer2.offset = 159,160
+layer3.anim = 41
+layer3.offset = 143,168
+layer4.anim = 42
+layer4.offset = 32,162
+layer10.anim = 28
+layer10.offset = 300,160
+;layer10.endtime = 400
+layer12.anim = 29
+layer12.offset = 80, 164
+layer13.anim = 30
+layer13.offset = 120,164
+layer20.anim = 32
+layer20.offset = 224, 0
+layer20.starttime = 60
+layer20.endtime = 123
+layer21.anim = 34
+layer21.offset = 224, 114
+layer21.starttime = 60
+layer21.endtime = 123
+layer22.anim = 33
+layer22.offset = 224, 0
+layer22.starttime = 120
+layer22.endtime = 162
+layer23.anim = 35
+layer23.offset = 224, 114
+layer23.starttime = 120
+layer23.endtime = 162
+layer24.anim = 33
+layer24.offset = 224, 0
+layer24.starttime = 180
+layer24.endtime = 222
+layer25.anim = 35
+layer25.offset = 224, 114
+layer25.starttime = 180
+layer25.endtime = 222
+layer26.anim = 36
+layer26.offset = 216, -8
+layer26.starttime = 200
+layer26.endtime = 206
+layer27.anim = 37
+layer27.offset = 224, 114
+layer27.starttime = 200
+layer27.endtime = 242
+layer28.anim = 36
+layer28.offset = 232, -4
+layer28.starttime = 220
+layer28.endtime = 226
+layer29.anim = 37
+layer29.offset = 224, 114
+layer29.starttime = 220
+layer29.endtime = 262
+layer30.anim = 36
+layer30.offset = 224, 0
+layer30.starttime = 240
+layer30.endtime = 246
+layer31.anim = 37
+layer31.offset = 224, 114
+layer31.starttime = 240
+layer31.endtime = 282
+layer32.anim = 36
+layer32.offset = 224, 0
+layer32.starttime = 250
+layer32.endtime = 256
+layer33.anim = 37
+layer33.offset = 224, 114
+layer33.starttime = 250
+layer33.endtime = 292
+layer34.anim = 36
+layer34.offset = 224, 0
+layer34.starttime = 260
+layer34.endtime = 266
+layer35.anim = 37
+layer35.offset = 224, 114
+layer35.starttime = 260
+layer35.endtime = 302
+layer36.anim = 36
+layer36.offset = 224, 0
+layer36.starttime = 270
+layer36.endtime = 390
+layer37.anim = 36
+layer37.offset = 216, -4
+layer37.starttime = 279
+layer37.endtime = 390
+layer38.anim = 36
+layer38.offset = 232, -8
+layer38.starttime = 285
+layer38.endtime = 390
+layer40.anim = 38
+layer40.offset = 224, 114
+layer40.starttime = 270
+layer40.endtime = 390
+layer100.anim = 39
+layer100.starttime = 400
+layer1001.text = "IT ALL CHANGED WITH THE DISCOVERY OF OTHER WORLDS..."
+layer1001.font = 0
+layer1001.offset = 160,100
+layer1001.textdelay = 5
+layer1001.starttime = 460
+sound0.value = 0, 1
+sound0.starttime = 60
+sound1.value = 0, 1
+sound1.starttime = 120
+sound3.value = 0, 1
+sound3.starttime = 180
+sound4.value = 0, 1
+sound4.starttime = 200
+sound5.value = 0, 1
+sound5.starttime = 220
+sound6.value = 0, 1
+sound6.starttime = 240
+sound7.value = 0, 1
+sound7.starttime = 250
+sound8.value = 0, 1
+sound8.starttime = 260
+sound9.value = 0, 1
+sound9.starttime = 270
+sound10.value = 0, 1
+sound10.starttime = 276
+sound11.value = 0, 1
+sound11.starttime = 282
+sound12.value = 0, 1
+sound12.starttime = 288
+sound13.value = 0, 1
+sound13.starttime = 294
+sound14.value = 0, 1
+sound14.starttime = 300
+sound15.value = 0, 1
+sound15.starttime = 306
+sound16.value = 0, 1
+sound16.starttime = 312
+sound17.value = 0, 1
+sound17.starttime = 318
+sound18.value = 0, 1
+sound18.starttime = 324
+sound19.value = 0, 1
+sound19.starttime = 330
+sound20.value = 0, 1
+sound20.starttime = 336
+sound21.value = 0, 1
+sound21.starttime = 342
+sound22.value = 0, 1
+sound22.starttime = 348
+sound23.value = 0, 1
+sound23.starttime = 354
+sound24.value = 0, 1
+sound24.starttime = 360
+sound25.value = 0, 1
+sound25.starttime = 366
+sound26.value = 0, 1
+sound26.starttime = 372
+sound27.value = 0, 1
+sound27.starttime = 378
+sound28.value = 0, 1
+sound28.starttime = 384
+sound29.value = 0, 1
+sound29.starttime = 390
+sound30.value = 0, 1
+sound30.starttime = 396
+sound31.value = 0, 0
+sound31.starttime = 400
+sound32.value = 0, 2
+sound32.starttime = 402
+
+; Next Text (?): IN THERE, THEY WOULD RECOVER THEIR MANPOWER AND RESOURCES BEFORE INITIATING THEIR NEXT ATTACK
+
+;Animation to use for scene 0
+[Begin Action 0]
+0,0, 0,0, -1
+; BG 2-1
+[Begin Action 1]
+0,1, 0,0, -1
+; BG 2-2
+[Begin Action 2]
+0,3, 0,0, -1
+; BG 3-1
+[Begin Action 3]
+0,4, 0,0, -1
+; BG 3-2
+[Begin Action 4]
+0,4, -1,0, 2
+0,4, -3,0, 2
+0,4, -4,0, 2
+0,4, -6,0, 2
+0,4, -7,0, 2
+0,4, -9,0, 2
+0,4, -10,0, 2
+0,4, -12,0, 2
+0,4, -13,0, 2
+0,4, -15,0, 2
+0,4, -16,0, 2
+0,4, -18,0, 2
+0,4, -19,0, 2
+0,4, -21,0, 2
+0,4, -22,0, 2
+0,4, -24,0, 2
+0,4, -25,0, 2
+0,4, -27,0, 2
+0,4, -28,0, 2
+0,4, -30,0, 2
+0,4, -31,0, 2
+0,4, -32,0, -1
+
+;"Entities"
+; Morden Staring
+[Begin Action 10]
+1,0, 0,0, 40, H
+1,1, 0,0, 6, H
+1,2, 0,0, 6, H
+1,3, 0,0, 6, H
+1,4, 0,0, 6, H
+1,5, 0,0, 6, H
+1,6, 0,0, 40, H
+1,5, 0,0, 6, H
+1,4, 0,0, 6, H
+1,3, 0,0, 60, H
+1,2, 0,0, 6, H
+1,1, 0,0, 6, H
+; Dead Soldier
+[Begin Action 11]
+2,0, 0,0, -1
+; Running Soldier
+[Begin Action 12]
+3,0, 0,0, 4, H
+3,1, 0,0, 4, H
+3,2, 0,0, 4, H
+3,3, 0,0, 4, H
+3,4, 0,0, 4, H
+3,5, 0,0, 4, H
+3,6, 0,0, 4, H
+3,7, 0,0, 4, H
+3,8, 0,0, 4, H
+3,9, 0,0, 4, H
+3,10, 0,0, 4, H
+3,11, 0,0, 4, H
+; Talking Soldier
+[Begin Action 13]
+5,0, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,2, 0,0, 6
+5,0, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,2, 0,0, 6
+5,0, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,2, 0,0, 6
+5,0, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,2, 0,0, 6
+5,0, 0,0, 40
+;Talking Soldier 2
+[Begin Action 14]
+5,0, 0,0, 96, H
+4,0, 0,0, 6, H
+4,1, 0,0, 6, H
+4,2, 0,0, 6, H
+5,0, 0,0, 6, H
+4,0, 0,0, 6, H
+4,1, 0,0, 6, H
+4,2, 0,0, 6, H
+5,0, 0,0, 6, H
+; Pointing Soldier
+[Begin Action 15]
+5,0, 0,0, 60
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,2, 0,0, 6
+5,0, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,2, 0,0, 6
+5,0, 0,0, 6
+4,0, 0,0, 6
+4,1, 0,0, 6
+4,2, 0,0, 6
+5,0, 0,0, 6
+5,1, 0,0, 6
+5,2, 0,0, 6
+5,3, 0,0, 6
+5,4, 0,0, 6
+5,5, 0,0, 6
+5,6, 0,0, 120
+5,5, 0,0, 6
+5,4, 0,0, 6
+5,3, 0,0, 6
+5,1, 0,0, 6
+5,0, 0,0, 30
+; Running Soldier 2
+[Begin Action 16]
+3,0, 0,0, 1, H
+3,1, 0,0, 1, H
+3,2, 0,0, 1, H
+3,3, 0,0, 1, H
+3,4, 0,0, 2, H
+3,5, 0,0, 2, H
+3,6, 0,0, 2, H
+3,7, 0,0, 1, H
+3,8, 0,0, 1, H
+3,9, 0,0, 1, H
+3,10, 0,0, 2, H
+3,11, 0,0, 2, H
+; Captured Regular Soldier
+[Begin Action 17]
+6,0, 0,0, 8
+6,1, 0,0, 8
+6,2, 0,0, 8
+6,3, 0,0, 8
+6,4, 0,0, 8
+6,5, 0,0, 8
+6,6, 0,0, 8
+6,7, 0,0, 8
+6,0, 0,0, 8
+6,1, 0,0, 8
+6,2, 0,0, 8
+6,3, 0,0, 8
+6,4, 0,0, 8
+6,5, 0,0, 8
+6,6, 0,0, 8
+6,7, 0,0, 8
+6,0, 0,0, 8
+6,1, 0,0, 8
+6,2, 0,0, 8
+6,3, 0,0, 8
+6,4, 0,0, 8
+6,5, 0,0, 8
+6,6, 0,0, 8
+6,7, 0,0, 8
+6,0, 0,0, 8
+6,0, 0,0, 120
+; Rebel Landseek
+[Begin Action 18]
+7,0, 0,0, -1
+; Rebel Landseek Driving
+[Begin Action 19]
+7,0, 0,0, 5
+7,1, 0,0, 5
+7,2, 0,0, 5
+7,3, 0,0, 5
+; Crystal
+[Begin Action 20]
+8,0, 0,0, 30
+8,1, 0,0, 5
+8,2, 0,0, 5
+8,3, 0,0, 5
+8,4, 0,0, 5
+8,5, 0,0, 5
+8,2, 0,0, 5
+; Crystal 2
+[Begin Action 21]
+8,0, 0,0, 60
+8,1, 0,0, 5
+8,2, 0,0, 5
+8,3, 0,0, 5
+8,4, 0,0, 5
+8,5, 0,0, 5
+8,2, 0,0, 5
+; Melty Honey Wrecked
+[Begin Action 22]
+9,0, 0,0, -1
+; Dead Soldier 2
+[Begin Action 23]
+2,0, 0,0, -1, H
+; Standing Soldier
+[Begin Action 24]
+10,0, 0,0, 6
+10,1, 0,0, 6
+10,2, 0,0, 6
+10,3, 0,0, 10
+10,2, 0,0, 8
+10,1, 0,0, 8
+10,0, 0,0, 4
+; Idling Soldier 1
+[Begin Action 25]
+11,4, 0,0, 24
+11,5, 0,0, 4
+11,6, 0,0, 4
+11,7, 0,0, 10
+11,6, 0,0, 8
+11,5, 0,0, 6
+11,0, 0,0, 8
+11,1, 0,0, 4
+11,2, 0,0, 4
+11,3, 0,0, 6
+11,2, 0,0, 6
+11,1, 0,0, 8
+11,0, 0,0, 8
+11,1, 0,0, 4
+11,2, 0,0, 4
+11,3, 0,0, 6
+11,2, 0,0, 6
+11,1, 0,0, 8
+11,8, 0,0, 6
+11,9, 0,0, 6
+11,8, 0,0, 6
+11,9, 0,0, 6
+11,10, 0,0, 6
+11,9, 0,0, 6
+11,10, 0,0, 6
+11,11, 0,0, 6
+11,10, 0,0, 6
+11,11, 0,0, 6
+11,10, 0,0, 6
+11,11, 0,0, 6
+11,10, 0,0, 6
+11,9, 0,0, 6
+11,8, 0,0, 8
+11,9, 0,0, 8
+11,10, 0,0, 8
+11,11, 0,0, 8
+; Idling Soldier 2
+[Begin Action 26]
+11,10, 0,0, 6, H
+11,9, 0,0, 6, H
+11,10, 0,0, 6, H
+11,11, 0,0, 6, H
+11,10, 0,0, 6, H
+11,11, 0,0, 6, H
+11,10, 0,0, 6, H
+11,11, 0,0, 6, H
+11,10, 0,0, 6, H
+11,9, 0,0, 6, H
+11,8, 0,0, 8, H
+11,9, 0,0, 8, H
+11,0, 0,0, 8, H
+11,1, 0,0, 4, H
+11,2, 0,0, 4, H
+11,3, 0,0, 6, H
+11,2, 0,0, 6, H
+11,1, 0,0, 8, H
+11,10, 0,0, 8, H
+11,11, 0,0, 8, H
+11,4, 0,0, 24, H
+11,5, 0,0, 4, H
+11,6, 0,0, 4, H
+11,7, 0,0, 10, H
+11,6, 0,0, 8, H
+11,5, 0,0, 6, H
+11,0, 0,0, 8, H
+11,1, 0,0, 4, H
+11,2, 0,0, 4, H
+11,3, 0,0, 6, H
+11,2, 0,0, 6, H
+11,1, 0,0, 8, H
+11,8, 0,0, 6, H
+11,9, 0,0, 6, H
+11,8, 0,0, 6, H
+11,9, 0,0, 6, H
+; Searching Scrap Soldier
+[Begin Action 27]
+13,0, 0,0, 7
+13,1, 0,0, 7
+13,2, 0,0, 7
+13,3, 0,0, 7
+13,4, 0,0, 7
+13,5, 0,0, 7
+13,6, 0,0, 7
+13,7, 0,0, 7
+13,0, 0,0, 8
+13,1, 0,0, 8
+13,2, 0,0, 8
+13,3, 0,0, 8
+13,4, 0,0, 8
+13,5, 0,0, 8
+13,6, 0,0, 8
+13,7, 0,0, 8
+14,0, 0,0, 24
+14,1, 0,0, 8
+14,2, 0,0, 6
+14,3, 0,0, 6
+14,4, 0,0, 6
+14,5, 0,0, 6
+14,6, 0,0, 6
+14,7, 0,0, 6
+14,8, 0,0, 6
+14,9, 0,0, 6
+14,10, 0,0, 4
+14,11, 0,0, 4
+14,12, 0,0, 4
+14,13, 0,0, 4
+13,0, 0,0, 6
+13,1, 0,0, 6
+13,2, 0,0, 6
+13,3, 0,0, 6
+13,4, 0,0, 6
+13,5, 0,0, 6
+13,6, 0,0, 6
+13,7, 0,0, 6
+
+
+; Stand from Scrap Soldier
+[Begin Action 28]
+12,3, 0,0, 24
+12,2, 0,0, 8
+12,1, 0,0, 8
+12,0, 0,0, 10
+10,0, 0,0, 6
+10,1, 0,0, 4
+10,1, -1,0, 2
+10,2, -3,0, 2
+10,2, -4,0, 2
+10,2, -6,0, 2
+10,3, -7,0, 2
+10,3, -9,0, 2
+10,3, -10,0, 2
+10,3, -12,0, 2
+10,3, -13,0, 2
+10,2, -15,0, 2
+10,2, -16,0, 2
+10,2, -18,0, 2
+10,2, -19,0, 2
+10,1, -21,0, 2
+10,1, -22,0, 2
+10,1, -24,0, 2
+10,1, -25,0, 2
+10,0, -27,0, 2
+10,0, -28,0, 2
+10,0, -30,0, 2
+10,0, -31,0, 2
+10,0, -32,0, 2
+LoopStart
+10,1, -32,0, 6
+10,2, -32,0, 6
+10,3, -32,0, 10
+10,2, -32,0, 8
+10,1, -32,0, 8
+10,0, -32,0, 4
+10,0, -32,0, 6
+
+
+; Screaming Soldier
+[Begin Action 29]
+11,11, 0,0, 60, H
+15,0, -1,0, 2, H
+15,1, -3,0, 2, H
+15,2, -4,0, 2, H
+15,3, -6,0, 2, H
+15,4, -7,0, 2, H
+15,5, -9,0, 2, H
+15,6, -10,0, 2, H
+15,7, -12,0, 2, H
+15,8, -13,0, 2, H
+15,9, -15,0, 2, H
+15,10, -16,0, 2, H
+15,9, -18,0, 2, H
+15,8, -19,0, 2, H
+15,7, -21,0, 2, H
+15,6, -22,0, 2, H
+15,5, -24,0, 2, H
+15,4, -25,0, 2, H
+15,3, -27,0, 2, H
+15,2, -28,0, 2, H
+15,1, -30,0, 2, H
+15,0, -31,0, 2, H
+16,0, -32,0, 24, H
+16,1, -32,0, 8, H
+3,0, -33,0, 2
+3,0, -35,0, 2
+18,0, -36,0, 2
+18,0, -38,0, 2
+18,0, -39,0, 2
+18,1, -40,0, 6
+LoopStart
+18,6, -40,0, 6
+18,7, -40,0, 6
+
+
+; Attentive Soldier
+[Begin Action 30]
+11,0, 0,0, 8
+11,1, 0,0, 4
+11,2, 0,0, 4
+11,3, 0,0, 6
+11,2, 0,0, 6
+11,1, 0,0, 8
+11,0, 0,0, 8
+11,1, 0,0, 4
+11,2, 0,0, 4
+11,3, 0,0, 6
+17,0, 0,0, 2
+17,0, -1,0, 2
+17,0, -3,0, 2
+10,0, -4,0, 2, H
+10,0, -6,0, 2, H
+10,0, -7,0, 2, H
+10,1, -9,0, 2, H
+10,1, -10,0, 2, H
+10,1, -12,0, 2, H
+10,2, -13,0, 2, H
+10,2, -15,0, 2, H
+10,2, -16,0, 2, H
+10,3, -18,0, 2, H
+10,3, -19,0, 2, H
+10,3, -21,0, 2, H
+10,3, -22,0, 2, H
+10,3, -24,0, 2, H
+10,2, -25,0, 2, H
+10,2, -27,0, 2, H
+10,2, -28,0, 2, H
+10,2, -30,0, 2, H
+10,1, -31,0, 2, H
+10,1, -32,0, 2, H
+10,1, -32,0, 2, H
+10,1, -32,0, 2, H
+10,0, -32,0, 2, H
+10,0, -32,0, 2, H
+LoopStart
+10,0, -32,0, 6, H
+10,1, -32,0, 6, H
+10,2, -32,0, 6, H
+10,3, -32,0, 10, H
+10,2, -32,0, 8, H
+10,1, -32,0, 8, H
+10,0, -32,0, 4, H
+
+; Running Soldier 3
+[Begin Action 31]
+3,0, 0,0, 4
+3,1, 0,0, 4
+3,2, 0,0, 4
+3,3, 0,0, 4
+3,4, 0,0, 4
+3,5, 0,0, 4
+3,6, 0,0, 4
+3,7, 0,0, 4
+3,8, 0,0, 4
+3,9, 0,0, 4
+3,10, 0,0, 4
+3,11, 0,0, 4
+
+
+; Bolt
+[Begin Action 32]
+21,0, -1,0, 2
+21,0, -3,0, 2
+21,1, -4,0, 2
+21,2, -6,0, 2
+21,2, -7,0, 2
+21,3, -9,0, 2
+21,4, -10,0, 2
+21,4, -12,0, 2
+21,5, -13,0, 2
+21,6, -15,0, 2
+21,6, -16,0, 2
+21,7, -18,0, 2
+21,8, -19,0, 2
+21,8, -21,0, 2
+21,8, -22,0, 2
+21,8, -24,0, 2
+21,8, -25,0, 2
+21,8, -27,0, 2
+21,8, -28,0, 2
+21,8, -30,0, 2
+21,8, -31,0, 2
+21,8, -32,0, 20, , AS256D0
+interpolate blend
+-1,0, -32,0, 1, , AS0D256
+; Bolt 2
+[Begin Action 33]
+21,0, -32,0, 1
+21,0, -32,0, 1
+21,0, -32,0, 1
+21,2, -32,0, 1
+21,2, -32,0, 1
+21,2, -32,0, 1
+21,4, -32,0, 1
+21,4, -32,0, 1
+21,4, -32,0, 1
+21,6, -32,0, 1
+21,6, -32,0, 1
+21,6, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 1
+21,8, -32,0, 20, , AS256D0
+interpolate blend
+-1,0, -32,0, 1, , AS0D256
+
+
+; Portal Appear 1
+[Begin Action 34]
+-1,0, 0,0, 30
+22,0, -25,0, 2
+22,0, -27,0, 2
+22,1, -28,0, 2
+22,1, -30,0, 2
+22,2, -31,0, 2
+22,2, -32,0, 2
+22,3, -32,0, 3
+22,4, -32,0, 3, , AS192D64
+22,5, -32,0, 3, , AS128D128
+22,6, -32,0, 3, , AS64D192
+22,7, -32,0, 3, , AS32D224
+
+
+; Portal Appear 2
+[Begin Action 35]
+-1,0, 0,0, 15
+22,0, -32,0, 3
+22,1, -32,0, 3
+22,2, -32,0, 3
+22,3, -32,0, 3
+22,4, -32,0, 3, , AS192D64
+22,5, -32,0, 3, , AS128D128
+22,6, -32,0, 3, , AS64D192
+22,7, -32,0, 3, , AS32D224
+
+
+; Bolt 3
+[Begin Action 36]
+21,8, -32,0, 6, , AS256D0
+interpolate blend
+-1,0, -32,0, 1, , AS0D256
+
+
+; Portal Appear 3
+[Begin Action 37]
+22,0, -32,0, 1, , AS224D32
+22,1, -32,0, 1, , AS192D64
+22,2, -32,0, 1, , AS160D96
+22,3, -32,0, 1, , AS128D128
+22,4, -32,0, 1, , AS96D160
+22,5, -32,0, 1, , AS64D192
+22,6, -32,0, 1, , AS32D224
+22,7, -32,0, 1, , AS0D256
+; Portal Appear 4
+[Begin Action 38]
+22,0, -32,0, 3, , AS160D96
+22,1, -32,0, 3, , AS160D96
+22,2, -32,0, 3, , AS160D96
+22,3, -32,0, 3, , AS160D96
+22,4, -32,0, 3, , AS160D96
+22,5, -32,0, 3, , AS160D96
+22,6, -32,0, 3, , AS160D96
+22,7, -32,0, 3, , AS160D96
+
+
+; White Screen
+[Begin Action 39]
+23,0, 0,0, 60, , AS0D256
+interpolate blend
+23,0, 0,0, -1, , AS256D0
+; Melty Honey Wrecked 2
+[Begin Action 40]
+9,0, 0,0, 60
+9,0, -1,0, 2
+9,0, -3,0, 2
+9,0, -4,0, 2
+9,0, -6,0, 2
+9,0, -7,0, 2
+9,0, -9,0, 2
+9,0, -10,0, 2
+9,0, -12,0, 2
+9,0, -13,0, 2
+9,0, -15,0, 2
+9,0, -16,0, 2
+9,0, -18,0, 2
+9,0, -19,0, 2
+9,0, -21,0, 2
+9,0, -22,0, 2
+9,0, -24,0, 2
+9,0, -25,0, 2
+9,0, -27,0, 2
+9,0, -28,0, 2
+9,0, -30,0, 2
+9,0, -31,0, 2
+9,0, -32,0, -1
+; Dead Soldier 3
+[Begin Action 41]
+2,0, 0,0, 60
+2,0, -1,0, 2
+2,0, -3,0, 2
+2,0, -4,0, 2
+2,0, -6,0, 2
+2,0, -7,0, 2
+2,0, -9,0, 2
+2,0, -10,0, 2
+2,0, -12,0, 2
+2,0, -13,0, 2
+2,0, -15,0, 2
+2,0, -16,0, 2
+2,0, -18,0, 2
+2,0, -19,0, 2
+2,0, -21,0, 2
+2,0, -22,0, 2
+2,0, -24,0, 2
+2,0, -25,0, 2
+2,0, -27,0, 2
+2,0, -28,0, 2
+2,0, -30,0, 2
+2,0, -31,0, 2
+2,0, -32,0, -1
+; Dead Soldier 4
+[Begin Action 42]
+2,0, 0,0, 60, H
+2,0, -1,0, 2, H
+2,0, -3,0, 2, H
+2,0, -4,0, 2, H
+2,0, -6,0, 2, H
+2,0, -7,0, 2, H
+2,0, -9,0, 2, H
+2,0, -10,0, 2, H
+2,0, -12,0, 2, H
+2,0, -13,0, 2, H
+2,0, -15,0, 2, H
+2,0, -16,0, 2, H
+2,0, -18,0, 2, H
+2,0, -19,0, 2, H
+2,0, -21,0, 2, H
+2,0, -22,0, 2, H
+2,0, -24,0, 2, H
+2,0, -25,0, 2, H
+2,0, -27,0, 2, H
+2,0, -28,0, 2, H
+2,0, -30,0, 2, H
+2,0, -31,0, 2, H
+2,0, -32,0, -1, H
+
