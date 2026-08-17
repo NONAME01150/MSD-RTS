@@ -1,58 +1,25 @@
-[Function State(i)]
-if stateno != $i
-{
-	changestate{value: $i}
-}
-
-[Function Anim(i)]
-if anim != $i
-{
-	changeanim{value: $i}
-}
-
-[Function Clsn1(i,l,t,r,d)]
-overrideclsn{group: clsn1;
-index: $i;
-rect: $l,$t,$r,$d}
-
-[Function Clsn2(i,l,t,r,d)]
-overrideclsn{group: clsn2;
-index: $i;
-rect: $l,$t,$r,$d}
-
-[Function BaseDamage(dam,guard,override,reversal)]
-Hitdef{attr: S,NA;
-hitflag: MAD;
-guardflag: MA;
-priority: 1, Hit;
-damage: $dam, $guard;
-sparkno: -1;
-guard.sparkno: -1;
-hitsound: -1, 0;
-guardsound: -1, 0;
-guard.dist: 40;
-guard.dist.height: 40, 40;
-getpower: 0,0;
-givepower: 0,0;
-keepstate: 1;
-missonoverride: $override;
-missonreversaldef: $reversal;
-score: 0,0;
-}
-
 [StateDef 5900; type: S; Physics: N;]
 
+if ishelper
+{
+	changeanim{value: -2}
+}
 Call RebelInfantry();
+Call AllProjectile();
 Call State(0);
 
 [StateDef 0; Physics: N;]
 
 if !ishelper
 {
-	TagOut{}
+	sprpriority{value: 3000;}
+	if roundstate > 0
+	{
+		TagOut{}
+	}
 	if !ailevel
 	{
-		if teamside = 1
+		if teamside = 1 && 0
 		{
 		Camera{view: Follow;
 		FollowID: ID;}
@@ -75,20 +42,55 @@ if !ishelper
 		{
 			turn{}
 		}
-		if numhelper(1) < 20 && inputtime(y) = 1
+		if inputtime(y) = 1
 		{
+			for i = 0; numplayer - 1; 1
+			{
+				if playerindex($i),ishelper && playerindex($i),root,id = id && playerindex($i),map(UnitID) > 0
+				{
+					lifeset{value: 1;
+					redirectid: playerindex($i),id}
+				}
+			}
+		}
+		map(chosenReinforce) := -1;
+		for i = 0; 4; 1
+		{
+			if playerid(map(LeadRTS)),numexplod(30005 + $i) && screenpos x = [15 * $i, 15 * $i + 14] && screenpos y = [2,2 + 15]   #[2 + 20 * (memberno - 1),2 + 15 + 20 * (memberno - 1)] # Separate Coop Method
+			{
+				modifyexplod{id: 30005 + $i;
+				palfx.time: 1;
+				palfx.add: 32,32,32;
+				redirectid: map(LeadRTS)}
+				map(chosenReinforce) := $i;
+				break;
+			}
+		}
+		let a = playerid(map(LeadRTS)),var(10101 + map(chosenReinforce) * 2 + playerid(map(LeadRTS)),map(reinforcepage) * 10);
+		if inputtime(b) = 1 && inputtime(x) < 0 && inputtime(z) < 0 && map(chosenReinforce) > -1 && numhelper(1) < 50 && $a > 0 && numhelper(10000)
+		{
+			helper(10000),map(UnitID) := playerid(map(LeadRTS)),explodvar(30005 + map(chosenReinforce), 0, anim);
+			helper(10000),map(moveaction) := 1;
+			helper(10000),map(movepointx) := helper(10000),pos x + helper(10000),camerapos x + randomrange(-90,90);
 			Helper{
 			helpertype: player ;
 			id: 1;
 			stateno: 5900;
-			pos: randomrange(-60, 60),0 ;
+			pos: 0,0 ;
 			postype: p1 ;
 			facing: 1 ;
 			keyctrl: 0 ;
 			ownpal: 1 ;
-			standby: 0}
+			standby: 0;
+			extendsmap: 1;
+			redirectid: helper(10000),id}
+			playerid(map(LeadRTS)),var(10101 + map(chosenReinforce) * 2 + playerid(map(LeadRTS)),map(reinforcepage) * 10) := $a - 1;
+			#playerid(map(LeadRTS)),var(10101 + map(chosenReinforce) * 2 + map(reinforcepage) * 10) := $a - 1;  Possible "Shared" method for later
+			helper(10000),map(moveaction) := 0;
+			helper(10000),map(movepointx) := 0;
+			helper(10000),map(UnitID) := 0;
 		}
-		if inputtime(b) >= 1
+		if inputtime(b) >= 1 && inputtime(x) < 0 && inputtime(z) < 0 && map(chosenReinforce) < 0
 		{
 			TagIn{}
 			Call Clsn2(0,-1,-1,1,1);
@@ -140,7 +142,7 @@ if !ishelper
 				}
 			}
 		}
-		if inputtime(b) = -1 && !map(teamchosen) || inputtime(c) = 1
+		if inputtime(c) = 1 && inputtime(x) < 0 && inputtime(z) < 0
 		{
 			if !map(gotone) || inputtime(c) > 0
 			{
@@ -152,12 +154,12 @@ if !ishelper
 			}
 			map(gotone) := 0;
 		}
-		if inputtime(a) = 1
+		map(gotone) := 0;
+		map(chosenUnit) := 0;
+		if inputtime(a) = 1 && inputtime(x) < 0 && inputtime(z) < 0
 		{
 			let a = playeridexist(map(chosenUnit));
 			let b = map(teamchosen);
-			#let c = playerid(map(chosenUnit)),pos x + playerid(map(chosenUnit)),camerapos x;
-			#let d = pos x + camerapos x;
 			ignorehitpause
 			{
 				for i = 0; 9; 1
@@ -187,10 +189,40 @@ if !ishelper
 				}
 			}
 		}
-		map(teamchosen) := map(teamchosen) + (inputtime(z) = 1) - (inputtime(x) = 1);
+		if inputtime(a) = 1 && inputtime(x) > 0
+		{
+			let a = map(teamchosen);
+			ignorehitpause
+			{
+				for i = 0; 9; 1
+				{
+					let b = var(10000 + $i + $a * 10);
+					let c = playeridexist($b);
+					if playeridexist($b)
+					{
+						if playerid($b),alive && playerid($b),ctrl
+						{
+							playerid($b),map(attackaction) := 1;
+							playerid($b),map(attackpointx) := pos x + camerapos x + randomrange(-10,30) * playerid($b),facing;
+							playerid($b),map(attackpointy) := pos y + groundlevel;
+						}
+					}
+					else
+					{
+						continue;
+					}
+				}
+			}
+		}
+		map(teamchosen) := map(teamchosen) + (inputtime(z) >= 1 && inputtime(c) = 1) - (inputtime(z) >= 1 && inputtime(b) = 1);
 		if map(teamchosen) < 0
 		{
 			map(teamchosen) := 0;
+		}
+		map(reinforcepage) := map(reinforcepage) + (inputtime(x) >= 1 && inputtime(c) = 1) - (inputtime(x) >= 1 && inputtime(b) = 1);
+		if map(reinforcepage) < 0
+		{
+			map(reinforcepage) := 0;
 		}
 		#Free up slots between group 0 (no group) to group 9 (ten slots for each group)
 		for i = 0; 99; 1
@@ -211,7 +243,18 @@ if !ishelper
 		}
 	}
 }
+if ishelper(10000)
+{
+	posset{y: 0}
+	sprpriority{value: -1}
+	if map(BuildID) = 1 && anim != [4,5]
+	{
+		changeanim{value: MISC5}
+	}
+}
+
 Call RebelInfantry();
+Call AllProjectile();
 
 [StateDef 10;]
 
@@ -257,6 +300,8 @@ Call RebelInfantry();
 
 [StateDef +1;]
 
+DisplayToClipBoard{text: "%v";
+		params: sprpriority}
 if !ishelper
 {
 	let b = map(teamchosen);
@@ -271,6 +316,22 @@ if !ishelper
 			var(10007 + $b * 10),
 			var(10008 + $b * 10),
 			var(10009 + $b * 10),}
+	if !ishelper && numexplod(30005)
+	{
+		let a = explodvar(30004, 0, pos x);
+		AppendToClipBoard{text: "\n%v %v %v %v %v";
+		params: explodvar(30005, 0, anim),
+		(explodvar(30004, 0, pos x)),
+		explodvar(30004, 0, pos y),
+		#pos x + camerapos x,
+		screenpos x,
+		#pos y + groundlevel}
+		screenpos y}
+		if camerapos x + screenpos x = [abs($a + 160), abs($a + 160) + 14]
+		{
+			
+		}
+	}
 }
 
 [StateDef -4;]
@@ -281,4 +342,40 @@ flag3: noairguard;
 flag4: nocrouchguard;
 flag5: sizepushonly;
 flag6: noautoturn;
-flag7: NoFallDefenceUp}
+flag7: NoFallDefenceUp;
+flag8: nobardisplay}
+
+if !ishelper
+{
+	if !map(LeadRTS) || !playeridexist(map(LeadRTS))
+	{
+		map(a) := 0;
+		for i = 0; numplayer - 1; 1
+		{
+			if playerindexexist($i) && playerindex($i),teamside = teamside && !playerindex($i),ishelper
+			{
+				if !map(LeadRTS)
+				{
+					map(LeadRTS) := playerindex($i),id;
+				}
+				playerindex($i),map(RTSMemberNo) := map(a) + 1;
+				map(a) := map(a) + 1;
+			}
+		}
+	}
+}
+
+if map(UnitID) > 0
+{
+	for i = 0; 9; 1
+	{
+		let c = root,map(teamchosen);
+		let d = root,var(10000 + $i + $c * 10);
+		let e = (ID = $d && alive);
+		sprpriority{value: 1 + 9 * ($e) }
+		if $e
+		{
+			break;
+		}
+	}
+}
