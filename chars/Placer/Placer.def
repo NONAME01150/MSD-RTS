@@ -1,0 +1,24 @@
+[Info]
+name = "Placer"        ;Name of character
+displayname = "Level Editor" ;Name of character to display
+versiondate = 09,30,2009    ;Version date of character (MM-DD-YYYY or X.XX)
+mugenversion = 1.1          ;Version of M.U.G.E.N character works on (X.XX)
+ikemenversion = 1.0
+author = "NONAME01150"         ;Character author name
+pal.defaults = 1      ;Default palettes in order of preference (up to 4)
+                            ;Numbering starts from 1
+localcoord = 320,240        ;Local coordinate space width and height
+
+; Files for the player
+[Files]
+;cmd     = kfm.cmd           ;Command set
+;cns     = kfm.const         ;Constants
+st      = Display.zss           ;States
+;st2 = hits.zss
+;st3 = command.zss
+;st4 = AI.zss
+stcommon = Placerbase.zss;common1.cns.zss  ;Common states (from data/ or motif)
+sprite  = Placer.sff           ;Sprite
+anim    = Placer.air           ;Animation
+;sound   = RTS.snd           ;Sound
+font1 = MSlug.def

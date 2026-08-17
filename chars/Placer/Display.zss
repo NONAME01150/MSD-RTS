@@ -1,0 +1,449 @@
+[Function ShowStr(i,b,x,y)]
+
+switch $i
+{
+	case -2:
+		let b = map(DebugDisplayVars) * 14;
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "%v\n%v\n%v\n%v\n%v\n%v\n%v\n%v\n%v\n%v\n%v\n%v,%v\n%v";
+		params: var(110012 + $b),var(110012 + 1 + $b),var(110012 + 2 + $b), var(110012 + 3 + $b),fvar(4 + $b),fvar(5 + $b),fvar(6 + $b),fvar(7 + $b),fvar(8 + $b),fvar(9 + $b),fvar(10 + $b),floor(abs((var(110012 + 1 + $b)) - (camerapos x - 160))),(var(110012 + 2 + $b)) - (camerapos y),max(const240p(gamewidth),var(110012 + 4 + $b));
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case -1:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "LAST VAR: %v";
+		params: map(Lastvar);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	default:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "NO TEXT %v";
+		params: $i;
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 0:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Tiles";
+		params: map(playerchosen);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 1:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Enemies";
+		params: map(playerchosen);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 2:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Collision";
+		params: map(playerchosen);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 3:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Events";
+		params: map(playerchosen);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 4:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Player: %v";
+		params: map(playerchosen);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 5:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Tile: %v";
+		params: map(animchosen);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 6:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Priority:%v";
+		params: map(sprprioritychosen);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 7:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Xshear: %0.2f";
+		params: map(xshearchosen);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 8:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "XDelta: %0.2f";
+		params: map(xdelta);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 9:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "YDelta: %0.2f";
+		params: map(ydelta);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 10:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Active: %v";
+		params: map(active);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 11:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Done";
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 12:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Menu";
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 13:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Length: %v";
+		params: map(width);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 14:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Height: %v";
+		params: map(height);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 15:
+		if map(DebugDisplayVars) % 2 = 1
+		{
+			text{layerno: 2;
+			localcoord: 320,240;
+			text: "Steps: %v %v";
+			params: map(step), map(substep);
+			font: 1;
+			bank: $b;
+			pos: $x, $y}
+		}
+		else
+		{
+			text{layerno: 2;
+			localcoord: 320,240;
+			text: "Steps: %v";
+			params: map(step) + map(substep) / 256;
+			font: 1;
+			bank: $b;
+			pos: $x, $y}
+		}
+	case 16:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Y-Dist: %v";
+		params: map(yadd);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 17:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Width: %v";
+		params: map(zup);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+	case 18:
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Flag: %v";
+		params: map(flag);
+		font: 1;
+		bank: $b;
+		pos: $x, $y}
+}
+
+[StateDef -4;]
+
+if !ishelper
+{
+	if map(menu)
+	{
+		let a = map(menudisplayYmove);
+		explod{anim: 1;
+		ID: 1;
+		space: screen;
+		pos: 20 + 72 * ((map(N115_MemberNo) - 1) % 4),1 + 88 * floor(float(map(N115_MemberNo)) / 5);
+		removetime: 1;
+		ownpal: 1;
+		layerno: 1;
+		window: 0,0,120,15;}
+		let b = $a / 34;
+		for i = 0; $b; 1
+		{
+			if $b >= $i
+			{
+				explod{anim: 1;
+				ID: 1;
+				space: screen;
+				pos: 20 + 72 * ((map(N115_MemberNo) - 1) % 4),1 + 34 * $i + 88 * floor(float(map(N115_MemberNo)) / 5);
+				removetime: 1;
+				ownpal: 1;
+				layerno: 1;
+				window: 0,15,120,15 + min(34, $a - 34 * $i);}
+			}
+		}
+		explod{anim: 1;
+		ID: 1;
+		space: screen;
+		pos: 20 + 72 * ((map(N115_MemberNo) - 1) % 4),-34 + $a + 88 * floor(float(map(N115_MemberNo)) / 5);
+		removetime: 1;
+		ownpal: 1;
+		layerno: 1;
+		window: 0,49,120,52;}
+		let a = 60 + 72 * ((map(N115_MemberNo) - 1) % 4) - 12 * (map(menu) = 4);
+		let b = 13 + 88 * floor(float(map(N115_MemberNo)) / 5);
+		Call ShowStr(cond(map(menu) = 1,12,map(entitychosen) - 1),2,$a,$b);
+	}
+
+	if map(entitychosen) != 3
+	{
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "x:%v,y:%v";
+		params: pos x + camerapos x, pos y + groundlevel;
+		font: 1;
+		pos: screenpos x, screenpos y + 24}
+	}
+	if 0 #map(entitychosen) > 0
+	{
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "%v %v";
+		params: map(playerchosen), map(animchosen);
+		font: 1;
+		pos: screenpos x, screenpos y + 32;}
+	}
+	if map(entitychosen) = 1 && (!map(playerchosen) && selfanimexist(map(animchosen)) || playernoexist(map(playerchosen)) && player(map(playerchosen)), selfanimexist(map(animchosen)))
+	{
+		let a = cond(map(playerchosen), player(map(playerchosen)),playerno, playerno);
+		explod{anim: map(animchosen);
+		id: 1;
+		pos: 0,0;
+		postype: p1;
+		removetime: 1;
+		sprpriority: map(sprprioritychosen);
+		ownpal: 1;
+		animplayerno: $a;
+		#hideonpausemenu: 1;
+		spriteplayerno: $a;
+		xshear: map(xshearchosen)}
+	}
+	if map(entitychosen) = 3
+	{
+		for i = 0; 4; 1
+		{
+			switch $i
+			{
+				default:
+				let x = 0;
+				let y = 0;
+				let xscale = 1;
+				let yscale = 1;
+				case 1:
+				let x = 0;
+				let y = 0;
+				let xscale = map(width) + 1 * (sign(map(width)) = 1);
+				let yscale = 1;
+				case 2:
+				let x = 0;
+				let y = 0;
+				let xscale = 1;
+				let yscale = map(height) + 1 * (sign(map(height)) = 1);
+				case 3:
+				let x = 0;
+				let y = 0;
+				let xscale = 1;
+				let yscale = map(yadd) + 1 * (sign(map(yadd)) = 1);
+				case 4:
+				let x = map(width);
+				let y = map(height);
+				let xscale = 1;
+				let yscale = 1;
+			}
+			explod{anim: 2;
+			id: 1;
+			pos: $x,$y;
+			postype: p1;
+			scale: $xscale,$yscale;
+			removetime: 1;
+			ownpal: 1}
+		}
+		map(rampwidth) := 0;
+		map(oldrampwidth) := 0;
+		for i = 0; 2499; 1
+		{
+			#map(width) / 256 denotes time and how farther to go in one iteration
+			#map(rampwidth) := map(step) + map(substep) / 256.0;
+			#map(rampxpos) := map(rampwidth) - 
+			map(rampwidth) := (map(step) + map(substep) / 256.0) * $i;
+			let a = call trunc(map(rampwidth));
+			let b = call trunc(map(oldrampwidth));
+			if $i > min(abs(map(width)),abs(map(height)))
+			{
+				break;
+			}
+			if 0 #$a = $b
+			{
+				continue;
+			}
+			if map(step) + map(substep) / 256.0 != 0
+			{
+				if abs(floor($i / 16)) = map(stepdisplay) #$i <= 50 || $i % 4 = 0
+				{
+					let a = cond(sign(map(step)) >= 0, 1, -1);
+					explod{anim: 3;
+					id: 1;
+					pos: $i,map(rampwidth) * sign(map(height));
+					postype: p1;
+					scale: 1,1;			#(map(rampwidth) - 1 * (sign(map(height)) = 1)) * -sign(map(height));
+					removetime: 1;
+					ownpal: 1}
+				}
+			}
+			if abs(map(rampdistx)) <= abs(map(width)) && abs(map(rampdisty)) <= abs(map(height))
+			{
+				#map(rampdistx) := map(rampdistx) + 1 * sign(map(width));
+				#map(rampdisty) := map(rampdisty) + 1 * sign(map(height));
+			}
+			map(oldrampwidth) := map(rampwidth);
+		}
+		if map(step) + map(substep) / 256.0 != 0
+		{
+			if gametime % 18 = 0
+			{
+				map(stepdisplay) := map(stepdisplay) + 1;
+			}
+			if map(stepdisplay) > floor(abs(min(map(width),map(height))) / 16)
+			{
+				map(stepdisplay) := 0;
+			}
+		}
+		for i = 0; 3; 1
+		{
+			switch $i
+			{
+				case 0:
+				let x = 0;
+				let y = 0;
+				let xscale = 1;
+				let yscale = map(zup) + 1 * (sign(map(zup)) = 1);
+				case 1:
+				let x = 0;
+				let y = 0;
+				let xscale = 1;
+				let yscale = map(zdown) + 1 * (sign(map(zdown)) = 1);
+				case 2:
+				let x = map(width);
+				let y = map(zup);
+				let xscale = 1;
+				let yscale = 1;
+				case 3:
+				let x = map(width);
+				let y = map(zdown);
+				let xscale = 1;
+				let yscale = 1;
+			}
+			explod{anim: 4;
+			id: 1;
+			pos: $x,$y;
+			postype: p1;
+			scale: $xscale,$yscale;
+			removetime: 1;
+			ownpal: 1}
+		}
+	}
+	if map(increasechosen)
+	{
+		text{layerno: 2;
+		localcoord: 320,240;
+		text: "Up = +10 Down = -10\nLeft = -1 Right = 1";
+		font: 1;
+		bank: 1;
+		pos: 8, 208}
+	}
+	map(menudisplayYmax) := 0;
+	if map(menu) = 1
+	{
+		map(menudisplayYmax) := 57;
+		for i = 0; 3; 1
+		{
+			call ShowStr($i,3 * (map(menuchoice) - 1 = $i),24 + 72 * ((map(N115_MemberNo) - 1) % 4),24 + 16 * $i + 88 * floor(float(map(N115_MemberNo)) / 5));
+		}
+	}
+	if map(menu) = 2
+	{
+		map(menudisplayYmax) := 65;
+		for i = 0; 7; 1
+		{
+			call ShowStr(4 + $i,3 * (map(menuchoice) - 1 = $i),24 + 72 * ((map(N115_MemberNo) - 1) % 4),24 + 8 * $i + 88 * floor(float(map(N115_MemberNo)) / 5));
+		}
+	}
+	if map(menu) = 4
+	{
+		map(menudisplayYmax) := 49;
+		for i = 0; 5; 1
+		{
+			call ShowStr(13 + $i,3 * (map(menuchoice) - 1 = $i),24 + 72 * ((map(N115_MemberNo) - 1) % 4),24 + 8 * $i + 88 * floor(float(map(N115_MemberNo)) / 5));
+		}
+	}
+	if ID = map(N115_Lead) #DebugMenu
+	{
+		#Call ShowStr(-2,0,120,8);
+	}
+	if gametime % 2 = 0
+	{
+		if (abs(map(menudisplayYmove)) < abs(map(menudisplayYmax)) - 8 || abs(map(menudisplayYmove)) > abs(map(menudisplayYmax)) + 8) && map(menu)
+		{
+			 map(menudisplayYmove) := map(menudisplayYmove) + 8 * sign(map(menudisplayYmax) - map(menudisplayYmove));
+		}
+		else
+		{
+			 map(menudisplayYmove) := map(menudisplayYmax);
+		}
+	}
+	map(DebugDisplayVars) := map(DebugDisplayVars) + (inputtime(w) = 1) - (inputtime(d) = 1);
+	if map(DebugDisplayVars) < 0
+	{
+		map(DebugDisplayVars) := 1;
+	}
+}
