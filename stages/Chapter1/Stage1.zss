@@ -1,0 +1,47 @@
+[StateDef 5900; anim:-2;]
+
+changestate{value:0;}
+
+[Statedef 0; anim:-2;]
+
+if time < 60
+{
+	
+}
+if 0 #!player(1),numhelper(1)
+{
+	for i = 0; 2; 1
+	{
+		Helper{
+			helpertype: player ;
+			id: 1;
+			stateno: 5900;
+			pos: 30 * $i,0 ;
+			postype: p1 ;
+			facing: 1 ;
+			keyctrl: 0 ;
+			ownpal: 1 ;
+			standby: 0;
+			redirectid: player(1),id}
+	}
+}
+if roundstate < 2
+{
+	for i = 0; numplayer - 1; 1
+	{
+		if playerindexexist($i) && playerindex($i),teamside = 1 && playerindex($i),alive && !playerindex($i),ishelper
+		{
+			let a = PlayerIndex($i),Pos X + PlayerIndex($i),CameraPos X;
+			assertspecial{flag: NoInput; flag2: invisible; redirectid: playerindex($i),id}
+		}
+	}
+}
+[Statedef 175; anim: -2;]
+
+[StateDef 200; anim: -2;]
+
+playerpush{value: 0}
+
+[StateDef -4;]
+
+assertspecial{flag: noautoturn}

@@ -1,0 +1,530 @@
+; Definition of KFM's stage
+; *** denotes values you should change/check for each stage.
+; The term "background" is used to mean both backgrounds and foregrounds.
+
+;--------------------------------------------------------
+[Info]
+ ;Name of the stage.
+name = "Stage01"
+displayname = "Chapter 1 - Echidna Ruins(?)" ;Name to display
+versiondate = 09,30,2009    ;Version date of stage (MM,DD,YYYY or X.XX)
+mugenversion = 1.1          ;Version of M.U.G.E.N stage works on (X.XX)
+ikemenversion = 1.0
+author = "NONAME01150"         ;Stage author name
+AttachedChar = Stage1.chr
+
+;--------------------------------------------------------
+[Camera]
+ ;Camera starting position: Usually 0 for both
+startx = 0
+starty = 0
+
+ ;Left and right bound of camera
+ ;You may want to fiddle a bit with these values to make sure the
+ ;background doesn't move too far or too little
+ ;***
+boundleft = 0
+boundright = 1364
+
+ ;High and low bound of camera
+ ;High is a negative number. Make is more negative if you want to
+ ;camera to be able to move higher.
+ ;Low should usually be 0.
+ ;If omitted, defaults to -25 and 0 respectively
+ ;***
+boundhigh = 0
+boundlow = 528
+
+ ;This is how much the camera will move vertically towards the
+ ;highest player. Valid values are from 0 to 1. A value of 0 will mean
+ ;the camera does not move up at all. A value of 1 will makes the camera
+ ;follow the highest player.
+ ;Typically .2 for normal-sized backgrounds. You may need to pull this
+ ;value up for taller backgrounds.
+verticalfollow = 1
+
+ ;Minimum vertical distance the highest player has to be from the floor,
+ ;before the camera starts to move up to follow him. For extremely
+ ;tall stages, a floor tension of about 20-30 coupled with a
+ ;vertical-follow of .8 allows the camera to follow the action.
+floortension = 0
+
+ ;Vertical distance from top and bottom edges where players can influence
+ ;vertical movement of the camera.
+;tensionhigh = 95
+;tensionlow = -5
+
+ ;Horizontal distance player is from edge before camera starts to move
+ ;left or right. Typically 50 or 60.
+tension = 60
+
+ ;Number of pixels beyond the top and bottom of the screen that may
+ ;be drawn.  Overdraw specifies the how much can be seen during an
+ ;EnvShake.  Overdraw pixels will also be used when the screen aspect
+ ;is taller than the stage aspect.
+overdrawhigh = 0
+overdrawlow = 0
+
+ ;Number of pixels into the top and bottom of the screen that may be
+ ;cut from drawing when the screen aspect is shorter than the stage
+ ;aspect.  These parameters suggest a guideline, and the actual
+ ;number of pixels cut depends on the difference in aspect.
+cuthigh = 35
+cutlow = 25
+
+ ;Zoom limits
+zoomout = 1
+zoomin = 1
+
+;--------------------------------------------------------
+[PlayerInfo]
+;--- Player 1 ---
+ ;Player 1 starting coordinates.
+ ;p1startx is typically -70 and p2startx is 70.
+ ;p1starty should be 0.
+p1startx = -70          ;Starting x coordinates
+p1starty = 0            ;Starting y coordinates
+p1facing = 1            ;Direction player faces: 1=right, -1=left
+
+;--- Player 2 ---
+p2startx = 70
+p2starty = 0
+p2facing = -1
+
+;--- Common ---
+ ;Don't change these values.
+leftbound  = -1000 ;Left bound (x-movement)
+rightbound =  2000 ;Right bound
+
+;--------------------------------------------------------
+[Bound]
+ ;Distance from left/right edge of screen that player can move to
+ ;Typically 15
+screenleft = 0    ;Dist from left of screen that player can move to
+screenright = 0   ;Right edge
+
+;--------------------------------------------------------
+[StageInfo]
+ ;"Ground" level where players stand at, measured in pixels from the
+ ;top of the screen.
+ ;Adjust this value to move the ground level up/down in the screen.
+ ;***
+zoffset = 120
+
+ ;Leave this at 1. It makes the players face each other
+autoturn = 1
+
+ ;Set the following to 1 to have the background be reset between
+ ;rounds.
+resetBG = 1
+
+ ;Width and height of the local coordinate space of the stage.
+localcoord = 320, 240
+
+ ;Horizontal and vertical scaling factor for drawing.
+xscale = 1
+yscale = 1
+
+;--------------------------------------------------------
+[Shadow]
+ ;This controls the darkness of the shadow. Valid values range
+ ;from 0 (lightest) to 256 (darkest). Defaults to 128 if omitted.
+intensity = 128
+
+ ;This is the shadow color given in r,g,b. Valid values for each
+ ;range from 0 (lightest) to 255 (darkest).
+ ;Defaults to 0,0,0 if omitted.
+ ;intensity and color's effects add up to give the final shadow
+ ;result.
+color = 0,0,0
+
+ ;This is the scale factor of the shadow. Use a big scale factor
+ ;to make the shadow longer. You can use a NEGATIVE scale factor
+ ;to make the shadow fall INTO the screen.
+ ;Defaults to 0.4 if omitted.
+yscale = 0
+
+ ;This parameter lets you set the range over which the shadow is
+ ;visible. The first value is the high level, and the second is
+ ;the middle level. Both represent y-coordinates of the player.
+ ;A shadow is invisible if the player is above the high level,
+ ;and fully visible if below the middle level. The shadow is
+ ;faded in between the two levels. This gives an effect of the
+ ;shadow fading away as the player gets farther away from the
+ ;ground. If omitted, defaults to no level effects (shadow is
+ ;always fully visible).
+fade.range = -400,-100
+
+;--------------------------------------------------------
+[Reflection]
+ ;Intensity of reflection (from 0 to 256). Set to 0 to have no
+ ;reflection. Defaults to 0.
+intensity = 0
+
+;--------------------------------------------------------
+[Music]
+ ;Put a filename for a MOD, MP3 or MIDI here, or just leave it
+ ;blank if you don't want music. If an invalid filename is
+ ;given, then no music will play. To play CD audio, put
+ ;the track number followed by ".da". Using a track number of
+ ;0 will play a random audio track. For example, to play
+ ;track 3 from a music CD, use:
+ ;  bgmusic = 3.da
+bgmusic = ;sound/HowtoMS1.ogg
+
+;bgmloopstart = <sample number>
+;bgmloopend = <sample number>
+
+ ;Adjust the volume. 100 is for 100%.
+bgmvolume = 100
+
+;========================================================
+;--------------------------------------------------------
+; Background definition
+; ***
+;-------------------------------------
+; [BG x]
+; type = ?       "Normal"/"Parallax"  (def: "normal")
+; spriteno = ?, ? Sprite group and number: groupno, imgno  (req'd)
+; start = ?, ?   Starting location (integer)  (def: 0, 0)
+; delta = ?, ?   Change in location per camera unit moved (float)  (def: 1,1)
+; trans = ?      Transparency settings: "none"/"add"/"add1"/"sub"/"addalpha" (def: "none")
+; alpha = ?, ?   (only for trans=addalpha) Source,dest alpha (def: 256,0)
+; mask = ?       Masking (int): 0 - off, 1 - on  (def: 0)
+; velocity = ?, ? Velocity: x, y (float): speed background moves (def: 0, 0)
+; tile = ?, ?    Tiling: xtile, ytile (int): 0 - off, 1 - infinite,
+;                        >1 - tile that number of times  (def: 0, 0) - only for Normal BG
+; tilespacing = ?, ? Tiling: x, y (int) : space between tiles (def: 0, 0)
+;  Parallax-only:
+; xscale = ?, ?    Top xscale, bottom xscale (float)
+; width = ?, ?     Top width, bottom width (int)  (use either this or above, but not both)
+; yscalestart = ?  Starting y-scale (float, in percent)  (def: 100)
+; yscaledelta = ?  Change in y-scale per unit (float, in percent)  (def: 0)
+;-------------------------------------
+
+;-------------------------------------
+; Main background definition
+[BGdef]
+ ;Filename of sprite data
+spr = EchidnaRuins.sff
+
+ ;Set to 1 if you want to clear the screen to magenta before
+ ;drawing layer 0 (the default background). Good for spotting "holes"
+ ;in your background.
+ ;Remember to turn this off when you are done debugging the background,
+ ;because it slows down performance.
+debugbg = 0
+
+;-------------------------------------
+; IKEMEN GO ONLY, preview animation used in the Select screen
+[Begin Action 9000]
+9000,1, 0,0,-1
+;-------------------------------------
+
+;----------
+[BG Row1Background1]
+type = normal
+spriteno = 2,0
+start = -160,0
+tile = 1,0
+tilespacing = 128,0
+velocity = -0.5,0
+[BG Row1Background2]
+type = normal
+spriteno = 2,1
+start = -32,0
+tile = 1,0
+tilespacing = 128,0
+velocity = -0.5,0
+
+[BG Row2Background1]
+type = normal
+spriteno = 2,4
+start = -160,128
+tile = 1,0
+tilespacing = 384,0
+[BG Row2Background2]
+type = normal
+spriteno = 2,5
+start = -32,128
+tile = 1,0
+tilespacing = 384,0
+[BG Row2Background3]
+type = normal
+spriteno = 2,6
+start = 96,128
+tile = 1,0
+tilespacing = 384,0
+[BG Row2Background4]
+type = normal
+spriteno = 2,7
+start = 224,128
+tile = 1,0
+tilespacing = 384,0
+
+[BG Row3Background1]
+type = normal
+spriteno = 2,8
+start = -160,256
+tile = 1,0
+tilespacing = 384,0
+[BG Row3Background2]
+type = normal
+spriteno = 2,9
+start = -32,256
+tile = 1,0
+tilespacing = 384,0
+[BG Row3Background3]
+type = normal
+spriteno = 2,10
+start = 96,256
+tile = 1,0
+tilespacing = 384,0
+[BG Row3Background4]
+type = normal
+spriteno = 2,11
+start = 224,256
+tile = 1,0
+tilespacing = 384,0
+
+[BG Row4Background1]
+type = normal
+spriteno = 2,12
+start = -160,384
+tile = 1,0
+tilespacing = 384,0
+[BG Row4Background2]
+type = normal
+spriteno = 2,13
+start = -32,384
+tile = 1,0
+tilespacing = 384,0
+[BG Row4Background3]
+type = normal
+spriteno = 2,14
+start = 96,384
+tile = 1,0
+tilespacing = 384,0
+[BG Row4Background4]
+type = normal
+spriteno = 2,15
+start = 224,384
+tile = 1,0
+tilespacing = 384,0
+
+[BG Row5Background1]
+type = normal
+spriteno = 2,20
+start = -160,512
+tile = 0,0
+tilespacing = 384,0
+[BG Row5Background2]
+type = normal
+spriteno = 2,21
+start = -32,512
+tile = 0,0
+tilespacing = 384,0
+[BG Row5Background3]
+type = normal
+spriteno = 2,22
+start = 96,512
+tile = 0,0
+tilespacing = 384,0
+[BG Row5Background4]
+type = normal
+spriteno = 2,23
+start = 224,512
+tile = 0,0
+tilespacing = 384,0
+
+[BG BlockBackground1]
+type = normal
+spriteno = 2,34
+start = 352,512
+tile = 8,0
+tilespacing = 0,0
+[BG BlockBackground2]
+type = normal
+spriteno = 2,34
+start = -160,640
+tile = 8,0
+tilespacing = 0,0
+
+; Start each background element with the following:
+; Make sure it's "[BG n]", where n is anything you like (it's only used to
+; report errors.) For example, you could use:  [BG TheFloor]
+; Specify as many as you like. This is an example of a normal background:
+[BG FullGroundTiles1]
+type  = normal
+spriteno = 0, 0
+start = -160, 720
+tile  = 0, 0
+tilespacing = 0,0
+[BG FullGroundTiles2]
+type = normal
+spriteno = 0,5
+start = -32,720
+tile = 2,0
+[BG FullGroundTiles3]
+type = normal
+spriteno = 0,1
+start = 224,720
+tile = 0,0
+
+[BG WalkFloor1]
+type = normal
+spriteno = 1,4
+start = -160,704
+tile = 40,0
+[BG WalkFloor2]
+type = normal
+spriteno = 1,5
+start = 480,704
+tile = 0,0
+[BG WalkFloor3]
+type = normal
+spriteno = 1,6
+start = 480,672
+tile = 0,2
+[BG WalkFloor4]
+type = normal
+spriteno = 1,7
+start = 480,656
+tile = 0,0
+[BG WalkFloor5]
+type = normal
+spriteno = 1,4
+start = 496,656
+tile = 8,0
+[BG WalkFloor6]
+type = normal
+spriteno = 1,1
+start = 624,656
+tile = 0,0
+[BG WalkFloor7]
+type = normal
+spriteno = 1,2
+start = 624,672
+tile = 0,2
+[BG WalkFloor8]
+type = normal
+spriteno = 1,3
+start = 624,704
+tile = 0,0
+[BG WalkFloor9]
+type = normal
+spriteno = 1,4
+start = 640,704
+tile = 4,0
+[BG WalkFloor10]
+type = normal
+spriteno = 1,5
+start = 704,704
+tile = 0,0
+[BG WalkFloor11]
+type = normal
+spriteno = 1,6
+start = 704,672
+tile = 0,2
+[BG WalkFloor12]
+type = normal
+spriteno = 1,7
+start = 704,656
+tile = 0,0
+[BG WalkFloor13]
+type = normal
+spriteno = 1,4
+start = 720,656
+tile = 2,0
+[BG WalkFloor14]
+type = normal
+spriteno = 1,1
+start = 752,656
+tile = 0,0
+[BG WalkFloor15]
+type = normal
+spriteno = 1,2
+start = 752,672
+tile = 0,2
+[BG WalkFloor16]
+type = normal
+spriteno = 1,3
+start = 752,704
+tile = 0,0
+[BG WalkFloor17]
+type = normal
+spriteno = 1,4
+start = 768,704
+tile = 16,0
+[BG WalkFloor18]
+type = normal
+spriteno = 1,5
+start = 1024,704
+tile = 0,0
+[BG WalkFloor19]
+type = normal
+spriteno = 1,6
+start = 1024,672
+tile = 0,2
+[BG WalkFloor20]
+type = normal
+spriteno = 1,7
+start = 1024,656
+tile = 0,0
+[BG WalkFloor21]
+type = normal
+spriteno = 1,4
+start = 1040,656
+tile = 8,0
+
+[BG WallLinearVer1]
+type = normal
+spriteno = 3,9
+start = 352,464
+tile = 0,3
+
+[BG WallLinearHor1]
+type = normal
+spriteno = 3,12
+start = -160,432
+tile = 4,0
+[BG WallLinearHor2]
+type = normal
+spriteno = 3,12
+start = 64,464
+tile = 0,0
+[BG WallLinearHor3]
+type = normal
+spriteno = 3,12
+start = 144,432
+tile = 4,0
+
+[BG WallBlock1]
+type = normal
+spriteno = 3,10
+start = 32,432
+tile = 0,0
+[BG WallBlock2]
+type = normal
+spriteno = 3,10
+start = 128,432
+tile = 0,0
+
+[BG WallLTile1]
+type = normal
+spriteno = 3,8
+start = 32,448
+tile = 0,0
+mask = 1
+[BG WallLTile2]
+type = normal
+spriteno = 3,7
+start = 112,448
+tile = 0,0
+mask = 1
+[BG WallLTile3]
+type = normal
+spriteno = 3,6
+start = 336,432
+tile = 0,0
+mask = 1

@@ -1,0 +1,59 @@
+[Info]
+name = "Echidna Ruins"
+author = "NONAME01150"
+ikemenversion = 1.0        
+localcoord = 320,240
+;Special thanks to Foobs for his template: 
+;https://github.com/RealFoobs/Attached-char-template/tree/main
+
+[Files]
+sprite = EchidnaRuins.sff
+anim = Stage1.chr
+;sound = Tuto1.snd;
+;stcommon = common1.cns      ;Common states (from data/ or motif)
+st = Stage1.zss;
+;=========================================================================================
+;CMD section
+[Remap]
+x = x
+y = y
+z = z
+a = a
+b = b
+c = c
+s = s
+command.time = 15
+command.buffer.time = 1
+[Command]
+name = "FF"     ;Required (do not remove)
+command = F, F
+time = 10
+[Command]
+name = "BB"     ;Required (do not remove)
+command = B, B
+time = 10
+[Command]
+name = "recovery";Required (do not remove)
+command = x+y
+time = 1
+
+; Walkway Floor
+[Begin Action 0]
+1,0, 0,0, 1
+[Begin Action 1]
+1,1, 0,0, 1
+[Begin Action 2]
+1,2, 0,0, 1
+[Begin Action 3]
+1,3, 0,0, 1
+[Begin Action 4]
+1,4, 0,0, 1
+[Begin Action 5]
+1,5, 0,0, 1
+[Begin Action 6]
+1,6, 0,0, 1
+[Begin Action 7]
+1,7, 0,0, 1
+[Begin Action 8]
+1,8, 0,0, 1
+
