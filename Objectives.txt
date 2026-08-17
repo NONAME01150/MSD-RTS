@@ -1,0 +1,34 @@
+DD/MM/YYYY
+07/04/2026
+Break through the mental block of mix and matching things ex: badniks in megaman x, Marco and Sonic working together, frankenspriting etc.
+(High priority! with it still there, any attempt (or planning) about a chaotic crossover will bring discomfort and anxiety even if one desires to try such concepts)
+16/05/2026
+Make work for a level editor (Placer) in order to avoid annoying work on bgdef of a stage for 16x16 tiles:
+-Explods will be used for tiles (1 screen and 32 pixels out of screen for what explods to show, both x and y) and backgrounds stuff (3 by 3 screens range, assuming this one doesn't get used for 16x16 tiles otherwise explod max will hit faster than expected)
+-Enemies can be placed by it though will require coding to make them or expand properties shown (maybe even end up having to rewrite it again and again for new placement properties)
+-Collisions will be separate from tiles themselves for the possibility to cut down on the amount and determining how wide and how tall they are:
+--clsn2 showing boxes are rectangular shaped platforms (go through platforms will probably be 1 pixel tall)
+--clsn1 showing boxes are slopes, using the left point to the right point with choice between top or bottom start and opposite end (will need to understand concav slope? or just do my usual method for slopes instead. Probably will leave other people unsatisfied with this method)
+--size showing boxes are push boxes, to push them away from going inside things (will have to deactivate default playerpush and make my own custom logic for it)
+-Event System for doing other stuff like locking camera on a place, checking how much certain enemies there are, and even 'winning' matches (simplicity and complexity at the same time is a goal of mine so this would probably need its own 'syntax' to work)
+-ModifyStagevar on the fly, allowing to change bounds on a whim.
+-Camera sctrl use and custom logic for it.
+
+19/05/2026
+checked SMBX 1.3's debugger
+stuff to remember for level editor
+-blocks had a maximum of 20000 and it took 25 to fill left to right (32 * 25 = 800)
+-32 x 10 = 320 so 10 / 25 = 0.4 * 20000 = 8000
+-16 x 20 = 320 so 20 / 25 = 0.8 * 20000 = 16000 blocks max
+-Backgrounds had a maximum of 5000
+-NPC (read: enemies and npcs) had a maximum of 8000
+-warp and doors had 200
+
+-maybe 10000 tiles for use, if not 20000? (using metal slug 3 mission 4 as reference (long and multiple sections))
+-backgrounds will definitely have less than tiles
+-enemies (and friendlies) could have 5000 slots?
+-need to have less loops and code in order to not lag the game (320000 (possible) iterations is not affordable)
+
+make a "update code on odd frames" thing in order to not need to convert 30fps to 60fps velocities and animation ticks (and use it on anything else that also uses such logic, even if with other fps benchmarks like 15, 20 and 35 fps etc)
+-metal slug 2 renders on odd frames so 1-3-5-7-9
+-but it has a bug that makes slowdown more severe, when slowdown causes the game to consistently miss odd frames it will wait a further two frames before updating

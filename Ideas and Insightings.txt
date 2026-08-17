@@ -1,1 +1,24 @@
 Use buttons as modifiers (a, b, c and z+a, z+b, z+c do different things)
+For Level Editor, assign tiles and stuff in one address of variables and when rendering them, map them to a further ahead address using the concept of pages of things (camerapos x 0-319 means page 0, camerapos x 320-639 means page 1)
+but how will i deal with variable height? throw them into the same page (thus infinite height) or make a second set of pages (then 9 screens worth of things to check)?
+For RTS Menu, there will be five main screens: Mission (stage select), Unit (information on unit and equip items), Upgrade (increasing units' stats and adding/changing unit behavior), Synthesis (adding two items/units together to get a new one) and Store (buying items and effects otherwise not found in stages for use in them)
+Furthermore, each screen is denoted by an universe's badguy's base theme: Generic (it's using MSAdvance mission 5's room so Morden technically but meaningfully, it's not meant to be), Morden, Eggman/Robotnik (each screen past Unit needs to be unlocked so this will only unlock after finding and recruiting Eggman. Meant to look like E101-Beta's remaking cutscene in SA1), Wily/Arachnotron (I'm not sure if i'll have combining stuff to unlock other stuff nor if Wily would be a good canditate as the third member of this alliance (i need to check and play the megaman games again). Arachnotron for "you beat the Spider Mastermind/Icon of Sin and now the Demons recognize you as the King of Hell" unlock stuff if Wily isn't available), Custom (using sgxp's custom backgrounds for stores, buildings and even forests while having people walking around, cars passing by, characters chilling and maybe even Allen'o Neil strolling by with a Di-Cokka for a tiny reference)
+for sliding menu buttons, MSAdvance used 13 x pixels per 2 frames (going up to 10 frames to slide into place), 4 y pixels for the yes and no buttons
+Steve Craft's suggestion: Represent Special Reinforcement slot as warp tubes and have them close when unused/done
+Stats in the Unit Card: Life, Power, Speed, Special (cooldown time to use it), Time (to make), Fee (to buy), Unnamed, Moves
+For Placer, steps will be shown as dots that demonstrate how high/low that collision will go, starting from left to right. The dot will only appear if there is a difference in height.
+furthermore, all stuff that deals with float will be done with two ints, the one for before the decimal point and the one after. To display it, the decimal int will be divided by 256 and added to to the display parameter (but not to the actual value).
+platform (immutable ground, not moving platforms) flags:
+0 none (default behavior; sets groundlevel at the center point's y pos. use clsn2 or size as an addition to the char's x and y pos?)
+1 block/push (also invert the bounding box fill, making the push away behavior of it start from the outward rather than the center point, ditto for block slopes)
+2 invert (changes the groundleveloffset y value from the y center point to the height (outward). necessary for upward ramps)
+4 snap (when specified, it makes the char snap instantly to the groundlevel value if it's in statetype S or C.)
+8 hurt/drain (attacks a char's clsn2 with clsn1 or takes away life from the Player/NPC inside it using lifeset depending on option)
+16 water/gravity (adds to the char's y pos when its inside it. amount is multiplier of the char's y velocity)
+32 sand/wind (subtracts a char's x/y/z pos until the char's clsn2/size is no longer inside it)
+64 Who can walk (determines that the collision will only activate for the ones specified. players, helpers, projectile helpers, projectile sctrls etc.)
+projectile helpers go with: helpers with movetype A and hitdef.attr NP, SP, HP or AP or assertspecial ProjTypeCollision
+128 Ladder (checks if a player is holding up or down and if it is, changes that player's statetype to A, set a NONAME_map regarding Ladders and makes him posadd up or down until he's no longer inside it. in that case, reverts the previous changes)
+for any further behaviors outside of those, use Events instead or make your own with coding
+For collision ejection, remake/redo from scratch the platform stuff and make it take up box, down box, left box and right box for size and width of the block
+with these four, make each one of these have their own push behavior (if char is on left box, push to left. if on down box, push down. up box, push up (and platform if possible). right to right.)
