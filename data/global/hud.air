@@ -1,0 +1,26 @@
+
+; Hud - current selection
+[Begin Action 0]
+0,0, 0,0, 1
+
+; Hud - reinforcement menu
+[Begin Action 1]
+0,1, 0,0, 1
+
+; Hud - unit icon
+[Begin Action 2]
+1,0, 0,0, 1
+
+
+; hud - fold menu
+[Begin Action 3]
+1,1, 0,0, 1
+
+; HealthBar (MS1)
+[Begin Action 4]
+2,4, 0,0, 1
+2,3, 0,0, 1
+2,2, 0,0, 1
+2,1, 0,0, 1
+2,0, 0,0, 1
+

@@ -1,0 +1,58 @@
+[Function PROJAnim(i)]
+if anim != $i
+{
+	changeanim{value: PROJ$i}
+}
+
+[Function AllProjectile()]
+
+# Rebel Grenade
+if map(projID) = 1
+{
+	switch stateno
+	{
+		case 0:
+			statetypeset{statetype: A; movetype: A; physics: N}
+			let a = Call Trunc(Pos Y);
+			if anim != [0,1]
+			{
+				call PROJAnim(0);
+			}
+
+			if !time
+			{
+				velset{y: -4.5}
+			}
+			if Time && anim = 0
+			{
+				let b = Call Trunc(Vel Y);
+				veladd{y: 0.15}
+				let c = Call Trunc(Vel Y);
+
+				if Time % 8 = 0 && $c != $b
+				{
+					veladd{y: -1}
+				}
+				if pos y >= 0
+				{
+					PosSet{Y: 0}
+					VelSet{x: 0; y: 0; z: 0}
+					call PROJAnim(1);
+					map(projID) := 2;
+				}
+			}
+		case 5900:
+			call PROJAnim(0);
+			#velset{x: 2}
+			Call State(0);
+	}
+}
+
+# Explosion Playout
+if map(projID) = 2
+{
+	if !animtime
+	{
+		destroyself{}
+	}
+}

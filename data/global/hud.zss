@@ -1,0 +1,147 @@
+[StateDef +1;]
+
+if !ishelper && name = "RTS" && !ailevelf
+{
+	
+}
+
+[StateDef -4;]
+
+if !ishelper && name = "RTS" && !ailevelf && enemy,name != "Menu"
+{
+	explod{anim: HUD0; # Current Selection BG
+	id: 30000;
+	space: screen;
+	pos: 80 * (memberno - 1),206;
+	facing: 0;
+	removetime: 1;
+	sprpriority: 999;
+	ownpal: 1;}
+	for i = 0; 9; 1 # Tiling for Icons
+	{
+		let a = $i % 5;
+		let b = floor(float($i) / 5);
+		let c = map(teamchosen);
+		let d = var(10000 + $i + $c * 10);
+		text{removetime: 1;
+		localcoord: 320,240;
+		text: "PG%v";
+		layerno: 2;
+		params: map(teamchosen);
+		font: f0;
+		pos: 80 * (memberno - 1), 205;
+		scale: 4,4;}
+		if playeridexist($d)
+		{
+			let e = playerid($d),map(unitID);
+			explod{anim: HUD2; # Icon BG
+			id: 30001;
+			space: screen;
+			pos: 2 + 15 * $a + 80 * (memberno - 1),209 + 15 * $b;#($i > 4);
+			facing: 0;
+			removetime: 1;
+			sprpriority: 1000;
+			ownpal: 1;}
+			explod{anim: ICON$e; # Unit Icon
+			id: 30002;
+			space: screen;
+			pos: 3 + 15 * $a + 80 * (memberno - 1),210 + 15 * $b;#($i > 4);
+			facing: 0;
+			removetime: 1;
+			sprpriority: 1001;
+			ownpal: 1;}
+		}
+	}
+	explod{anim: HUD1; # Reinforcement Menu BG
+	id: 30003;
+	space: screen;
+	pos: 0,20 * (memberno - 1);
+	facing: 0;
+	removetime: 1;
+	sprpriority: 999;
+	ownpal: 1;}
+	for i = 0; 4; 1 # Tiling
+	{
+		let a = map(reinforcepage);
+		let b = var(10100 + $i * 2 + $a * 10);
+		let c = var(10101 + $i * 2 + $a * 10);
+		text{removetime: 1;
+		localcoord: 320,240;
+		text: "%v";
+		layerno: 2;
+		params: $a;
+		font: f0;
+		pos: 80, 10 + 20 * (memberno - 1);
+		scale: 4,4;}
+		if $b
+		{
+			explod{anim: HUD2; # Icon BG
+			id: 30004;
+			space: screen;
+			pos: 15 * $i,2 + 20 * (memberno - 1);
+			facing: 0;
+			removetime: 1;
+			sprpriority: 1000;
+			ownpal: 1;}
+			explod{anim: ICON$b; # Unit Icon
+			id: 30005 + $i;
+			space: screen;
+			pos: 1 + 15 * $i,3 + 20 * (memberno - 1);
+			facing: 0;
+			removetime: 1;
+			sprpriority: 1001;
+			ownpal: 1;}
+			text{removetime: 1;
+			localcoord: 320,240;
+			text: "x%v";
+			layerno: 2;
+			params: $c;
+			font: f0;
+			pos: 2 + 15 * $i, 16 + 20 * (memberno - 1);
+			scale: 2,2;}
+		}
+	}
+}
+
+if ishelper && root,name = "RTS" && map(UnitID) > 0 && Alive
+{
+	for i = 0; 9; 1
+	{
+		let a = pos x + camerapos x;
+		let a2 = pos y + groundlevel;
+		let atop = clsnvar(clsn2, 0, top);
+		let abot = clsnvar(clsn2, 0, bottom);
+		let aback = clsnvar(clsn2, 0, back);
+		let afront = clsnvar(clsn2, 0, front);
+		let b = root,pos x + root,camerapos x;
+		let b2 = root,pos y + root,groundlevel;
+		let e = ($b = [$a + $aback, $a + $afront]);
+		let f = ($b2 = [$a2 + $atop, $a2 + $abot]);
+		let c = root,map(teamchosen);
+		let d = root,var(10000 + $i + $c * 10);
+		if id = $d
+		{
+			text{removetime: 1;
+			localcoord: 320,240;
+			text: "%v";
+			layerno: 2;
+			params: $c;
+			font: f0;
+			pos: screenpos x, screenpos y + $atop - 12;
+			scale: 4,4;}
+		}
+		if $e && $f || root,inputtime(x) > 0 || life < lifemax
+		{
+			let a = float(life) / float(lifemax);
+			let b = ceil($a / 0.2);
+			explod{anim: HUD4;
+			id: 30006;
+			postype: p1;
+			pos: 0, clsnvar(clsn2, 0, top) - 8;
+			facing: facing;
+			removetime: 1;
+			ownpal: 1;
+			animelem: $b;}
+		}
+	}
+}

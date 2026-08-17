@@ -1,0 +1,52 @@
+[Function State(i)]
+if stateno != $i
+{
+	changestate{value: $i}
+}
+
+[Function Anim(i)]
+if anim != $i
+{
+	changeanim{value: $i}
+}
+
+[Function Clsn1(i,l,t,r,d)]
+overrideclsn{group: clsn1;
+index: $i;
+rect: $l,$t,$r,$d}
+
+[Function Clsn2(i,l,t,r,d)]
+overrideclsn{group: clsn2;
+index: $i;
+rect: $l,$t,$r,$d}
+
+[Function BaseDamage(dam,guard,override,reversal)]
+Hitdef{attr: S,NA;
+hitflag: MAD;
+guardflag: MA;
+priority: 1, Hit;
+damage: $dam, $guard;
+sparkno: -1;
+guard.sparkno: -1;
+hitsound: -1, 0;
+guardsound: -1, 0;
+guard.dist: 40;
+guard.dist.height: 40, 40;
+getpower: 0,0;
+givepower: 0,0;
+keepstate: 1;
+missonoverride: $override;
+missonreversaldef: $reversal;
+score: 0,0;
+}
+
+[Function Trunc(a) e]
+
+if $a >= 0
+{
+	let e = Floor($a);
+}
+else
+{
+	let e = Ceil($a);
+}
