@@ -1,0 +1,947 @@
+[Function selectslide()]
+if map(letslide)
+{
+	if abs(map(selectmenuslide) - map(slidemax)) >= 40
+	{
+		map(selectmenuslide) := map(selectmenuslide) + 1.5;
+	}
+	else if abs(map(selectmenuslide) - map(slidemax)) >= 20
+	{
+		map(selectmenuslide) := map(selectmenuslide) + 1;
+	}
+	else if abs(map(selectmenuslide) - map(slidemax)) >= 10
+	{
+		map(selectmenuslide) := map(selectmenuslide) + 0.5;
+	}
+	else
+	{
+		map(selectmenuslide) := map(selectmenuslide) + 0.25;
+	}
+	if abs(map(selectmenuslide) - map(slidemax)) = [0.000001,0.25]
+	{
+		map(selectmenuslide) := map(slidemax);
+	}
+}
+else
+{
+	map(selectmenuslide) := 0;
+	map(slidemax) := 0;
+}
+
+[Function UnitMenuBystanderCreate(i,var,xmin,xmax,ymin,ymax)]
+
+if !var($var)
+{
+	var($var) := $i; #Unit
+	var($var + 1) := 0; #Anim Frame
+	var($var + 2) := 0; #Anim Time
+	var($var + 3) := 0; #Anim Length
+	changeanim{value: 999 + var($var)}
+	var($var + 4) := animelemvar(Time);
+	var($var + 5) := animlength;
+	fvar($var) := randomrange($xmin,$xmax) - map(camerapos); #330 520
+	fvar($var + 1) := randomrange($ymin,$ymax); #192 236
+	#changeanim{value: prevanim}
+}
+
+[Function UnitMenuBystander(var,face,add)]
+
+if var($var) > 0
+{
+	explod{anim: 999 + var($var);
+	ID: 1000;
+	space: screen;
+	pos: (fvar($var) + map(camerapos)) * camerazoom,fvar($var + 1) * camerazoom;
+	facing: $face;
+	removetime: 1;
+	scale: 1,1;
+	layerno: 0;
+	sprpriority: fvar($var + 1);
+	shadow: 0;
+	ownpal: 1;
+	remappal: -1,0;
+	animelem: var($var + 1) + 1}
+	if gametime % 2 = 0
+	{
+		if var($var + 2) >= var($var + 4)
+		{
+			var($var + 1) := var($var + 1) + 1;
+			var($var + 2) := 0;
+		}
+		if var($var + 3) >= var($var + 5)
+		{
+			var($var + 1) := 0;
+			var($var + 2) := 0;
+			var($var + 3) := 0;
+		}
+		var($var + 2) := var($var + 2) + 1;
+		var($var + 3) := var($var + 3) + 1;
+		switch var($var)
+		{
+			case 2:
+				if fvar($var) < -30
+				{
+					var($var) := 0;
+				}
+				fvar($var) := fvar($var) + $add;
+			case 3:
+				if fvar($var) < -120
+				{
+					var($var) := 0;
+				}
+				fvar($var) := fvar($var) + $add;
+		}
+	}
+}
+
+[Function MenuAllText(i,b,l,x,y)]
+
+switch $i
+{
+	default:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "NO TEXT";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+	case 0:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "MISSION";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+	case 1:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "UNIT";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+	case 2:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "UPGRADE";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+	case 3:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "FUSION";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+	case 4:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "STORE";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+	case 5:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "SAVE";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+	case 6:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "INQUIRY";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+	case 7:
+		text{removetime: 1;
+		layerno: $l;
+		localcoord: 320,240;
+		text: "GEAR";
+		font: 1;
+		bank: $b;
+		align: 1;
+		pos: $x,$y;
+		scale: 1,1}
+}
+
+[Function Transition()]
+
+helper{postype: p1;
+stateno: 100;}
+playerid(lastplayerid),map(togoscreen) := map(togoscreen);
+
+[Function UnitCard(i,var,sign)]
+
+Switch $i
+{
+	default:
+	let i = -1;
+	case 0:
+	let unit = 1000;
+	let x = 220;
+	let y = 80;
+	let fps = 2;
+	case 1:
+	let unit = 1003;
+	let x = 220;
+	let y = 80;
+	let fps = 2;
+}
+if $unit != var($var + 5)
+{
+	var($var) := 0; #Anim Frame
+	var($var + 1) := 0; #Anim Time
+	var($var + 2) := 0; #Anim Length
+	changeanim{value: $unit}
+	var($var + 3) := animelemvar(Time);
+	var($var + 4) := animlength;
+}
+if $i > -1
+{
+	let a = cond($sign = 0, 1, 0.75);
+	if !$sign
+	{
+		text{removetime: 1;
+		layerno: 1;
+		localcoord: 320,240;
+		text: "hit\npoint\npower\nspeed\nload\nr.time\nfee\nmove";
+		font: 2;
+		bank: 0;
+		align: 1;
+		pos: 45,93;
+		textspacing: 0, 3}
+		text{removetime: 1;
+		id: 1;
+		layerno: 1;
+		localcoord: 320,240;
+		text: "%v";
+		params: map(Fee);
+		font: 2;
+		bank: 0;
+		align: 0;
+		pos: 120,147}
+		if !map(Fee)
+		{
+			modifytext{id: 1;
+			text: "free"}
+		}
+		text{removetime: 1;
+		id: 2;
+		layerno: 1;
+		localcoord: 320,240;
+		text: "";
+		font: 2;
+		bank: 0;
+		align: 1;
+		pos: 80,156}
+		text{removetime: 1;
+		id: 3;
+		layerno: 1;
+		localcoord: 320,240;
+		text: "";
+		font: 2;
+		bank: 0;
+		align: 1;
+		pos: 74,162}
+	}
+	explod{anim: $unit;
+	ID: 1;
+	space: screen;
+	pos: $x * ($a) + 137 * $sign - 9 * ($sign = -1),$y * ($a) + 65 - 8 * ($sign != 0);
+	facing: 1;
+	removetime: 1;
+	scale: 0.75 + 0.25 * (!$sign),0.75 + 0.25 * (!$sign);
+	sprpriority: 1000;
+	ownpal: 1;
+	remappal: -1,0;
+	animelem: var($var) + 1}
+	explod{anim: 11;
+	ID: 1;
+	space: screen;
+	pos: 38 + 127 * $sign - 29 * ($sign = -1),65 - 8 * ($sign != 0);
+	facing: 1;
+	removetime: 1;
+	scale: 0.75 + 0.25 * (!$sign),0.75 + 0.25 * (!$sign);
+	sprpriority: 1000 + (!$sign);
+	ownpal: 1;
+	remappal: -1,0}
+	explod{anim: 12;
+	ID: 1;
+	space: screen;
+	pos: 38 + 127 * $sign - 29 * ($sign = -1),65 - 8 * ($sign != 0);
+	facing: 1;
+	removetime: 1;
+	scale: 0.75 + 0.25 * (!$sign),0.75 + 0.25 * (!$sign);
+	sprpriority: 1000;
+	ownpal: 1;
+	animelem: 1}
+	if gametime % $fps = 0
+	{
+		if var($var + 1) >= var($var + 3)
+		{
+			var($var) := var($var) + 1;
+			var($var + 1) := 0;
+		}
+		if var($var + 2) >= var($var + 4)
+		{
+			var($var) := 0;
+			var($var + 1) := 0;
+			var($var + 2) := 0;
+		}
+		var($var + 1) := var($var + 1) + 1;
+		var($var + 2) := var($var + 2) + 1;
+	}
+}
+var($var + 5) := $unit; #Old
+
+[Function UnitCardStats(i)]
+
+Switch $i
+{
+	default:
+	let i = -1;
+	map(Life) := 0;
+	map(Power) := 0; #Just pick the unit's main way of attack's damage for simplicity sake
+	map(Speed) := 0;
+	case 0:
+	map(Life) := 4;
+	map(Power) := 3;
+	map(Speed) := 3;
+	map(Load) := 4;
+	map(Reinforce) := 4;
+	map(Fee) := 80;
+	case 1:
+	map(Life) := 5;
+	map(Power) := 3;
+	map(Speed) := 3;
+	map(Load) := 6;
+	map(Reinforce) := 5;
+	map(Fee) := 100;
+}
+
+[Function UnitCardTack(x,y,pal,var)]
+
+explod{anim: 13;
+ID: 1;
+space: screen;
+pos: $x,$y;
+facing: 1;
+removetime: 1;
+scale: 1,1;
+sprpriority: 1002;
+ownpal: 1;
+remappal: 12,$pal;
+animelem: var($var) + 1}
+changeanim{value: 13}
+var($var + 3) := animelemvar(Time);
+var($var + 4) := animlength;
+if gametime % 2 = 0
+{
+	if var($var + 1) >= var($var + 3)
+	{
+		var($var) := var($var) + 1;
+		var($var + 1) := 0;
+	}
+	if var($var + 2) >= var($var + 4)
+	{
+		var($var) := 0;
+		var($var + 1) := 0;
+		var($var + 2) := 0;
+	}
+	var($var + 1) := var($var + 1) + 1;
+	var($var + 2) := var($var + 2) + 1;
+}
+
+[Function MoveString(i)]
+
+switch $i
+{
+	default:
+	modifytext{text: "none %v";
+	params: $i;
+	id: 2}
+	modifytext{text: "none %v";
+	params: $i;
+	id: 3}
+	case 0:
+	modifytext{text: "knife,grenade,landmine,";
+	params: 0;
+	id: 2}
+	modifytext{text: "jumpslash";
+	params: 0;
+	id: 3}
+	case 1:
+	modifytext{text: "bazooka, triple shot";
+	params: 0;
+	id: 2}
+	modifytext{text: "";
+	params: 0;
+	id: 3}
+}
+
+[StateDef 5900;]
+
+if !time
+{
+	map(Screen) := 1;
+}
+changeanim{value: -2}
+changestate{value: 1}
+
+[StateDef 0;]
+
+changestate{value: 1}
+changeanim{value: -2}
+
+[StateDef 1;]
+
+if !time
+{
+	playbgm{bgm: "Menu1.ogg";
+	loopstart: 277656} #245371 #275484 #276700
+	map(menuchoicemax) := 5;
+	explod{anim: 1;
+	ID: 1;
+	space: screen;
+	pos: 32,0;
+	facing: 1;
+	vel: 0,0;
+	removetime: -1;
+	scale: 2,2;
+	layerno: -1;
+	sprpriority: 999;
+	shadow: 0;
+	ownpal: 1;
+	remappal: -1,0;}
+	explod{anim: 0;
+	ID: 1;
+	space: screen;
+	pos: 32,0;
+	facing: 1;
+	vel: 0,0;
+	removetime: -1;
+	scale: 2,2;
+	layerno: -1;
+	sprpriority: 1000;
+	shadow: 0;
+	ownpal: 1;
+	remappal: -1,0;}
+	for i = 0; 1; 1
+	{
+		let a = ($i = [1,2]);
+		explod{anim: 5 + $a;
+		ID: 1;
+		space: screen;
+		pos: 54 + 64 * $i,102 + 18 * $a;
+		facing: 1;
+		vel: 0,0;
+		removetime: -1;
+		scale: 2,2;
+		layerno: -1;
+		sprpriority: 1001;
+		shadow: 0;
+		ownpal: 1;
+		remappal: -1,0}
+	}
+}
+if gametime >= map(timeaction)
+{
+	for i = 0; 3; 1
+	{
+		if numexplod(10 + $i)
+		{
+			continue;
+		}
+		else
+		{
+			changeanim{value: randomrange(2,4)}
+			explod{anim: anim;
+			ID: 10 + $i;
+			space: screen;
+			pos: randomrange(61,202),randomrange(31,102);
+			facing: 1;
+			vel: 0,0;
+			removetime: animlength * randomrange(1,4);
+			scale: 2,2;
+			layerno: -1;
+			sprpriority: 1001;
+			shadow: 0;
+			ownpal: 1;
+			remappal: -1,0}
+			break;
+		}
+	}
+	map(timeaction) := gametime + randomrange(1,105);
+}
+if roundstate != [0,1]
+{
+	map(ok) := 0;
+	for i = 0; 5; 1
+	{
+		let a = 26 * $i;
+		if map(menuchoice) = $i && map(selectable)
+		{
+			explod{anim: 8;
+			ID: 1;
+			space: screen;
+			pos: -109 + 15 - $a + var(0 + $i),83 + 24 * $i;
+			facing: 1;
+			vel: 0,0;
+			removetime: 1;
+			scale: 66,1;
+			layerno: 0;
+			shadow: 0;
+			ownpal: 1;
+			remappal: -1,0}
+		}
+		let b = cond(numhelper && map(menuchoice) = $i,3,1 * !(map(menuchoice) = $i && map(selectable)));
+		explod{anim: 7;
+		ID: 1;
+		space: screen;
+		pos: -109 - 26 * $i + var(0 + $i),80 + 24 * $i;
+		facing: 1;
+		vel: 0,0;
+		removetime: 1;
+		scale: 1,1;
+		layerno: 0;
+		shadow: 0;
+		ownpal: 1;
+		remappal: -1,0}
+		call MenuAllText($i,$b,1,-109 + 17 - $a + var(0 + $i),91 + 24 * $i);
+		if gametime % 2 = 0
+		{
+			if var(0 + $i) < 109 + $a
+			{
+				var(0 + $i) := var(0 + $i) + 13;
+			}
+			else
+			{
+				var(0 + $i) := 109 + $a;
+				map(ok) := map(ok) + 1;
+			}
+		}
+	}
+	if map(ok) >= 6
+	{
+		map(selectable) := 1 * !(numhelper);
+	}
+}
+
+[StateDef 3;]
+
+if !time
+{
+	playbgm{bgm: "Menu2.ogg";
+	loopstart: 10955}
+	map(menuchoicemax) := 1;
+	map(menuchoicedirect) := 1;
+}
+explod{anim: 20;
+ID: 1;
+space: screen;
+pos: map(camerapos),0;
+facing: 1;
+removetime: 1;
+scale: 1,1;
+layerno: -1;
+sprpriority: 999;
+ownpal: 1;}
+
+if gametime >= map(timeaction)
+{
+	for i = 0; 9; 1
+	{
+		if var($i * 6)
+		{
+			continue;
+		}
+		else
+		{
+			let rand = randomrange(2,3);
+			let a = cond($rand = 2, 330, 430);
+			call UnitMenuBystanderCreate($rand,$i * 6,
+			$a,520,
+			192,236);
+			break;
+		}
+	}
+	map(timeaction) := gametime + randomrange(1,30);
+}
+for i = 0; 9; 1
+{
+	if var($i * 6)
+	{
+		let a = cond(var($i * 6) = 2, -3, -2.5);
+		call UnitMenuBystander($i * 6,-1,$a);
+	}
+}
+if roundstate > 1 && !numhelper
+{
+	map(ok) := 0;
+	for i = 0; 1; 1
+	{
+		let a = 26 * $i;
+		if map(menuchoice) = $i && map(selectable)
+		{
+			explod{anim: 8;
+			ID: 1;
+			space: screen;
+			pos: 35 + (175 * $i),243 + var(100 + $i) + 8 * $i;
+			facing: 1;
+			vel: 0,0;
+			removetime: 1;
+			scale: 66,1;
+			sprpriority: 1000;
+			layerno: 0;
+			shadow: 0;
+			ownpal: 1;}
+		}
+		let b = cond(numhelper && map(menuchoice) = $i || map(buttonchosen) = $i,3,1 * !(map(menuchoice) = $i && map(selectable)));
+		explod{anim: 7;
+		ID: 1;
+		space: screen;
+		pos: 20 + 175 * $i,240 + var(100 + $i) + 8 * $i;
+		facing: 1;
+		vel: 0,0;
+		removetime: 1;
+		scale: 1,1;
+		sprpriority: 1000;
+		layerno: 0;
+		shadow: 0;
+		ownpal: 1;
+		window: 0,0,81,16}
+		explod{anim: 9;
+		ID: 1;
+		space: screen;
+		pos: 20 + 175 * $i,240 + var(100 + $i) + 8 * $i;
+		facing: 1;
+		removetime: 1;
+		sprpriority: 1000;
+		ownpal: 1;
+		window: 81,0,95,16}
+		explod{anim: 10;
+		ID: 1;
+		space: screen;
+		pos: 20 + 175 * $i + map(buttontime) * (map(menuchoice) = $i),240 + var(100 + $i) + 8 * $i;
+		facing: 1;
+		removetime: 1;
+		sprpriority: 1001;
+		ownpal: 1;
+		window: 86,0,102,16}
+		call MenuAllText(6 + $i,$b,1,37 + 175 * $i,251 + 8 * $i + var(100 + $i));
+		if gametime % 2 = 0
+		{
+			if var(100 + $i) > -16 - 8 * $i
+			{
+				var(100 + $i) := var(100 + $i) - 4;
+			}
+			else
+			{
+				var(100 + $i) := -16 - 8 * $i;
+				map(ok) := map(ok) + 1;
+			}
+			if map(buttonchosen) = 0
+			{
+				map(camerapos) := lerp(map(camerapos), -840, 0.1);
+			}
+			else if map(buttonchosen) = 1
+			{
+				map(camerapos) := lerp(map(camerapos), -1200, 0.1);
+			}
+			else
+			{
+				map(camerapos) := lerp(map(camerapos), 0, 0.1);
+			}
+		}
+	}
+	if map(buttonchosen) = 0
+	{
+		map(submenuchoicemax) := 6;
+		for i = -1; 1; 1
+		{
+			Call UnitCard(map(submenuchoice) + $i,1000 + $i * 6,$i);
+		}
+		Call UnitCardStats(map(submenuchoice));
+		Call MoveString(map(submenuchoice));
+		if 1 #map(unitcardON)
+			{
+				map(tackorder) := 0;
+				for j = 0; 53; 1
+				{
+					if map(tackorder) > 53 || map(Life) <= 0
+					{
+						break;
+					}
+					let a = min(floor(map(Life) / 24), 5); #12
+					Call UnitCardTack(76 + 4 * (map(tackorder) % 27) - 9 * (floor(map(tackorder) / 27)),89 + (9 * floor(map(tackorder) / 27)),$a,1100 + $j * 5);
+					map(Life) := map(Life) - cond($a = 5,10,$a + 1);
+					map(tackorder) := map(tackorder) + 1;
+				}
+				map(tackorder) := 0;
+				for j = 0; 26; 1 #26 (27 for 1-index) is max amount of tacks
+				{
+					if map(tackorder) > 26 || map(Power) <= 0
+					{
+						break;
+					}
+					let a = min(floor(map(Power) / 12), 5);
+					Call UnitCardTack(76 + 4 * map(tackorder),107,$a,1370 + $j * 5);
+					map(Power) := map(Power) - cond($a = 5,10,$a + 1);
+					map(tackorder) := map(tackorder) + 1;
+				}
+				map(tackorder) := 0;
+				for j = 0; 26; 1
+				{
+					if map(tackorder) > 26 || map(Speed) <= 0
+					{
+						break;
+					}
+					let a = min(floor(map(Speed) / 12), 5);
+					Call UnitCardTack(76 + 4 * map(tackorder),116,$a,1630 + $j * 5);
+					map(Speed) := map(Speed) - cond($a = 5,10,$a + 1);
+					map(tackorder) := map(tackorder) + 1;
+				}
+				map(tackorder) := 0;
+				for j = 0; 26; 1
+				{
+					if map(Load) <= 0
+					{
+						break;
+					}
+					let a = min(floor(map(Load) / 12), 5);
+					Call UnitCardTack(76 + 4 * map(tackorder),125,$a,1890 + $j * 5);
+					map(Load) := map(Load) - cond($a = 5,10,$a + 1);
+					map(tackorder) := map(tackorder) + 1;
+				}
+				map(tackorder) := 0;
+				for j = 0; 26; 1
+				{
+					if map(Reinforce) <= 0
+					{
+						break;
+					}
+					let a = min(floor(map(Reinforce) / 12), 5);
+					Call UnitCardTack(76 + 4 * map(tackorder),134,$a,2150 + $j * 5);
+					map(Reinforce) := map(Reinforce) - cond($a = 5,10,$a + 1);
+					map(tackorder) := map(tackorder) + 1;
+				}
+			}
+	}
+	if map(ok) >= 2
+	{
+		map(selectable) := 1 * !(numhelper);
+	}
+}
+
+[StateDef 100;]
+
+if time < 18
+{
+	explod{anim: 10000;
+	ID: 10000;
+	space: screen;
+	pos: 0,0;
+	facing: 1;
+	removetime: 1;
+	trans: add;
+	alpha: 256, 256 - time * 18;
+	layerno: 1;
+	sprpriority: 1000;
+	ownpal: 1;}
+}
+if time = 18
+{
+	#map(Screen) := map(togoscreen);
+	changestate{value: map(togoscreen); redirectid: root,id}
+	root,map(togoscreen) := 0;
+}
+if time = [18,35]
+{
+	explod{anim: 10000;
+	ID: 10000;
+	space: screen;
+	pos: 0,0;
+	facing: 1;
+	removetime: 1;
+	trans: add;
+	alpha: 256, (time - 18) * 18;
+	layerno: 1;
+	sprpriority: 1000;
+	ownpal: 1;}
+}
+if time > 35
+{
+	destroyself{}
+}
+
+[StateDef -4;]
+
+assertspecial{flag: nohardcodedkeys}
+if facing != 1
+{
+	turn{}
+}
+for i = 0; numplayer - 1; 1
+{
+	if playerindexexist($i)
+	{
+		assertspecial{flag: invisible; redirectid: playerindex($i),id}
+		assertspecial{flag: roundnotskip;
+		flag2: NoFaceDisplay;
+		flag3: NoGuardBarDisplay;
+		flag4: NoLifeBarDisplay;
+		flag5: NoNameDisplay;
+		flag6: NoPowerBarDisplay;
+		flag7: NoStunBarDisplay;
+		#flag8: NoTimeDisplay;
+		redirectid: playerindex($i),id}
+		assertspecial{flag: NoWinIconDisplay;
+		flag2: SkipFightDisplay;
+		flag3: SkipKoDisplay;
+		flag4: SkipRoundDisplay;
+		flag5: SkipWinDisplay;
+		redirectid: playerindex($i),id}
+	}
+}
+if !time
+{
+	if numexplod
+	{
+		RemoveExplod{}
+	}
+	map(selectable) := 0;
+	map(menuchoice) := 0;
+	map(menuchoicemax) := 0;
+	map(menuchoicemin) := 0;
+	map(menuchoicedirect) := 0;
+	map(buttonchosen) := -1;
+	map(subscreen) := -1;
+	map(camerapos) := 0;
+	for i = 0; 399; 1
+	{
+		if $i < 200
+		{
+			var($i) := 0;
+		}
+		else
+		{
+			fvar($i - 200) := 0;
+		}
+	}
+}
+if map(selectable)
+{
+	if map(subscreen) < 0
+	{
+		if !map(menuchoicedirect)
+		{
+			map(menuchoice) := map(menuchoice) + cond(player(1),inputtime(U) = 1, -1, 1 * (player(1),inputtime(D) = 1));
+			map(buttontime) := cond(player(1),inputtime(U) > 0 || player(1),inputtime(D) > 0,0,map(buttontime));
+		}
+		else
+		{
+			map(menuchoice) := map(menuchoice) + cond(player(1),inputtime(L) = 1, -1, 1 * (player(1),inputtime(R) = 1));
+			map(buttontime) := cond(player(1),inputtime(L) > 0 || player(1),inputtime(R) > 0,0,map(buttontime));
+		}
+	}
+	else
+	{
+		if !map(menuchoicedirect)
+		{
+			map(submenuchoice) := map(submenuchoice) + cond(player(1),inputtime(U) = 1, -1, 1 * (player(1),inputtime(D) = 1));
+		}
+		else
+		{
+			if map(submenuchoice) < map(submenuchoicemax) && (player(1),inputtime(R) = 1 || player(1),inputtime(R) > 18 && player(1),inputtime(R) % 4 = 0)
+			{
+				map(submenuchoice) := map(submenuchoice) + 1;
+			}
+			if map(submenuchoice) > 0 && (player(1),inputtime(L) = 1 || player(1),inputtime(L) > 18 && player(1),inputtime(L) % 4 = 0)
+			{
+				map(submenuchoice) := map(submenuchoice) - 1;
+			}
+		}
+	}
+	if player(1),inputtime(b) = 1
+	{
+		if stateno = 1
+		{
+			map(togoscreen) := (map(menuchoice) + 2) % 7;
+			#helper{postype: p1;
+			#stateno: 100;}
+			#playerid(lastplayerid),map(togoscreen) := map(togoscreen);
+			call Transition();
+			map(selectable) := 0;
+		}
+		if stateno = 3
+		{
+			if map(subscreen) = -1
+			{
+				map(buttonchosen) := map(menuchoice);
+				map(subscreen) := map(menuchoice);
+			}
+		}
+	}
+	if player(1),inputtime(c) = 1
+	{
+		if stateno = 3
+		{
+			if map(subscreen) = -1
+			{
+				map(togoscreen) := 1;
+				call Transition();
+				map(selectable) := 0;
+			}
+			if map(subscreen) >= 0
+			{
+				map(buttonchosen) := -1;
+				map(subscreen) := -1;
+			}
+		}
+	}
+	if gametime % 2 = 0
+	{
+		if map(buttonchosen) >= 0 && map(buttontime) < 8
+		{
+			map(buttontime) := map(buttontime) + 1;
+		}
+		else if map(buttonchosen) = -1 && map(buttontime) > 0
+		{
+			map(buttontime) := map(buttontime) - 1;
+		}
+	}
+}
+if map(menuchoice) < map(menuchoicemin)
+{
+	map(menuchoice) := map(menuchoicemax);
+}
+else if map(menuchoice) > map(menuchoicemax)
+{
+	map(menuchoice) := map(menuchoicemin);
+}

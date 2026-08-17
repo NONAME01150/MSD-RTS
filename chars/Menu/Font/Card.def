@@ -1,0 +1,15 @@
+; font2 - 8 point font
+; Indexed 1-bank
+; Bank 0 - mono
+
+fntversion = 2,00
+name = "Sonic Battle Cards Expanded"
+
+[Def]
+Type = bitmap
+; Bank numbers are mapped to palette numbers (0, bank).
+BankType = palette
+Size = 5,5
+Spacing = 1,1
+Offset = 0,0
+File = Card.sff
