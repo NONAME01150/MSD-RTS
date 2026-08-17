@@ -39,6 +39,7 @@ localcoord = 1280,720 	;Local coordinate space width and height
 [Files]
 sff = fight.sff
 snd = fight.snd
+font0 = data/custom/MSlug.def
 font1 = Menu2.def
 font2 = Timer.def
 font3 = Menu2Small.def

@@ -197,7 +197,10 @@
  ;Insert your characters below.
 
 RTS
-randomselect
+Placer
+Mecha Sonic Plus ;randomselect
+Menu
+Rob-O Sonic
 
 ;-------------------------------------------------------------------------------
 [ExtraStages]
@@ -268,7 +271,9 @@ randomselect
  ;
  ;Insert your stages below.
 
+stages/Utility/Menu.def
 stages/MetalSlug/Tutorial
+stages/Chapter1/Stage1
 
 ;-------------------------------------------------------------------------------
 [Options]
