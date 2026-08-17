@@ -12,7 +12,6 @@ sprite = MS1Part1.sff
 ;sound = Tuto1.snd;
 ;stcommon = common1.cns      ;Common states (from data/ or motif)
 st = Tuto1.zss;
-fx = data/global/miscellaneous.def
 ;=========================================================================================
 ;CMD section
 [Remap]

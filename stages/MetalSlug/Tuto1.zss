@@ -1,3 +1,18 @@
+[Function RebelTalk()]
+
+if anim != 2 && map(time) < 200
+{
+	changeanim{value: MISC2;}
+}
+if anim = 2
+{
+	map(time) := map(time) + 1;
+	if map(time) >= 200
+	{
+		changeanim{value: MISC1;}
+	}
+}
+
 [StateDef 5900; anim:-2;]
 changestate{value:0;}
 
@@ -24,15 +39,17 @@ if 0 #!player(1),numhelper(1)
 			redirectid: player(1),id}
 	}
 }
-if roundstate = 0
+if !numexplod
 {
-	explod{anim: MISC0;
+	explod{anim: MISC3;
 	space: screen;
+	pos: 160, 40;
 	scale: 1 * camerazoom,1 * camerazoom;
 	ontop: 1;
-	ownpal: 1}
+	ownpal: 1;
+	removetime: -1;}
 }
-if numexplod(0)
+if roundstate = 0 || map(steps) = 3
 {
 	for i = 0; numplayer - 1; 1
 	{
@@ -43,23 +60,210 @@ if numexplod(0)
 			posadd{x: 1200 - $a;
 			redirectid: playerindex($i),ID}
 			playerpush{value: 0; redirectid: playerindex($i),ID}
-			if !player(1),numhelper(1)
+			if !player(1),numhelper(1) && playerindex($i),id = player(1),id
 			{
-				for i = 0; 2; 1
+				player(1),map(unitID) := 1;
+				for i = 0; 4; 1
 				{
 					Helper{helpertype: player ;
 					id: 1;
 					stateno: 5900;
-					pos: -90 + 30 * $i,0 ;
+					pos: -210 + 30 * $i,0 ;
 					postype: p1 ;
 					facing: 1 ;
 					keyctrl: 0 ;
 					ownpal: 1 ;
 					standby: 0;
+					extendsmap: 1;
 					redirectid: player(1),id}
+					player(1),var(10100 + $i * 2) := 1;
+					player(1),var(10101 + $i * 2) := 12;
 				}
+				player(1),map(unitID) := 0;
+			}
+			if playerindex($i),id = player(3),id && !player(3),numhelper(1)
+			{
+				player(3),map(unitID) := 1;
+				for i = 0; 9; 1
+				{
+					Helper{helpertype: player ;
+					id: 1;
+					stateno: 5900;
+					pos: -210 + 15 * $i,0 ;
+					postype: p1 ;
+					facing: 1 ;
+					keyctrl: 0 ;
+					ownpal: 1 ;
+					standby: 0;
+					extendsmap: 1;
+					redirectid: player(3),id}
+					player(3),var(10100 + $i * 2) := 1;
+					player(3),var(10101 + $i * 2) := 69;
+				}
+				player(3),map(unitID) := 0;
 			}
 		}
 	}
+	if !numhelper
+	{
+		Helper{helpertype: normal;
+		id: 1;
+		stateno: 200;
+		pos: player(1),pos x + player(1),camerapos x - 210 + 180,0 ;
+		postype: p1 ;
+		facing: -1 ;
+		keyctrl: 0 ;
+		ownpal: 1 ;
+		standby: 0;}
+	}
 }
 [Statedef 175; anim: -2;]
+
+[Statedef 200; anim: MISC1;]
+if time < 300
+{
+	map(steps) := 0;
+	assertspecial{flag: invisible;
+	flag2: noinput;
+	redirectid: player(1),id}
+}
+switch time
+{
+	case 150:
+	text{removetime: 200;
+	localcoord: 320,240;
+	text: "Operations";
+	layerno: 2;
+	font: f0;
+	pos: 36, 26;
+	scale: 4,4;}
+	case 400:
+	map(steps) := 1;
+}
+
+switch map(steps)
+{
+	default:
+	map(time) := 0;
+	case 1:
+	text{removetime: 1;
+	localcoord: 320,240;
+	text: "Press button B to select a\nunit.";
+	layerno: 2;
+	font: f0;
+	pos: 36, 26;
+	scale: 4,4;}
+	if anim != 2 && map(time) < 200
+	{
+		changeanim{value: MISC2;}
+	}
+	if anim = 2
+	{
+		map(time) := map(time) + 1;
+		if map(time) >= 200
+		{
+			changeanim{value: MISC1;}
+		}
+	}
+	if player(1),var(10000)
+	{
+		map(time) := 0;
+		map(steps) := 2;
+	}
+	case 2:
+	text{removetime: 1;
+	localcoord: 320,240;
+	text: "Press button A to move it.";
+	layerno: 2;
+	font: f0;
+	pos: 36, 26;
+	scale: 4,4;}
+	call RebelTalk();
+	if !player(1),var(10000)
+	{
+		map(time) := 0;
+		map(steps) := 1;
+	}
+	else if playeridexist(player(1),var(10000))
+	{
+		let a = playerid(player(1),var(10000)),pos x + playerid(player(1),var(10000)),camerapos x;
+		if playerid(player(1),var(10000)),map(distancestart) = 0
+		{
+			playerid(player(1),var(10000)),map(distancestart) := $a;
+		}
+		let b = playerid(player(1),var(10000)),map(distancestart);
+		if $a != [$b - 80, $b + 80]
+		{
+			map(time) := 0;
+			map(steps) := 3;
+		}
+	}
+	case 3:
+	text{removetime: 1;
+	localcoord: 320,240;
+	text: "Press button B on the upper\nicons to call extra units.\nYou need a base point for it.";
+	layerno: 2;
+	font: f0;
+	pos: 36, 26;
+	scale: 4,4;}
+	call RebelTalk();
+	map(time) := map(time) + 1;
+	if !player(1),numhelper(10000) && map(steps) = 3
+	{
+		player(1),map(BuildID) := 1;
+		Helper{helpertype: normal ;
+		id: 10000;
+		stateno: 5900;
+		pos: 0,0 ;
+		postype: p1 ;
+		facing: 1 ;
+		keyctrl: 0 ;
+		ownpal: 1 ;
+		standby: 1;
+		extendsmap: 1;
+		redirectid: player(1),id}
+		player(1),map(BuildID) := 0;
+	}
+	if player(1),numhelper(1) > 5
+	{
+		if map(time) >= 201
+		{
+			map(time) := 201;
+			map(steps) := 4;
+		}
+	}
+	case 4:
+	text{removetime: 1;
+	localcoord: 320,240;
+	text: "Press button B on the upper\nicons to call extra units.\nYou need a base point for it.\nThese are limited.";
+	layerno: 2;
+	font: f0;
+	pos: 36, 26;
+	scale: 4,4;}
+	call RebelTalk();
+	if map(time) > 350
+	{
+		map(time) := 0;
+		map(steps) := 5;
+	}
+	else
+	{
+		map(time) := map(time) + 1;
+	}
+	case 5:
+	call RebelTalk();
+	if map(time) > 60
+	{
+		text{removetime: 1;
+		localcoord: 320,240;
+		text: "This is all you need to\nsucceed.";
+		layerno: 2;
+		font: f0;
+		pos: 36, 26;
+		scale: 4,4;}
+	}
+}
+
+[StateDef -4;]
+
+assertspecial{flag: noautoturn}

@@ -1,0 +1,86 @@
+[Info]
+name = "Menu"
+displayname = "RTS Menu"
+versiondate = 09,30,2009
+mugenversion = 1.1
+ikemenversion = 1.0
+author = "NONAME01150"
+
+;--------------------------------------------------------
+[Camera]
+startx = 0
+starty = 0
+
+boundleft = 0
+boundright = 320
+boundhigh = 0
+boundlow = 0
+
+verticalfollow = 1
+
+floortension = 0
+tension = 60
+
+overdrawhigh = 0
+overdrawlow = 0
+
+cuthigh = 35
+cutlow = 25
+
+zoomout = 1
+zoomin = 1
+
+;--------------------------------------------------------
+[PlayerInfo]
+p1startx = 0
+p1starty = 0
+p1facing = 1
+p2startx = 0
+p2starty = 0
+p2facing = -1
+
+leftbound  = -1000 ;Left bound (x-movement)
+rightbound =  1000 ;Right bound
+
+;--------------------------------------------------------
+[Bound]
+screenleft = 0
+screenright = 0
+
+;--------------------------------------------------------
+[StageInfo]
+zoffset = 120
+autoturn = 1
+resetBG = 1
+localcoord = 320, 240
+xscale = 1
+yscale = 1
+
+;--------------------------------------------------------
+[Shadow]
+intensity = 0
+color = 0,0,0
+yscale = 0
+fade.range = -400,-100
+
+;--------------------------------------------------------
+[Reflection]
+intensity = 0
+
+;--------------------------------------------------------
+[Music]
+bgmusic = ;sound/HowtoMS1.ogg
+;bgmloopstart = <sample number>
+;bgmloopend = <sample number>
+bgmvolume = 100
+
+;-------------------------------------
+[BGdef]
+spr = EchidnaRuins.sff
+debugbg = 0
+
+;-------------------------------------
+; IKEMEN GO ONLY, preview animation used in the Select screen
+[Begin Action 9000]
+9000,1, 0,0,-1
+;-------------------------------------
